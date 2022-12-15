@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: trip-app-backend-server
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848 #nacos中心地址
+      discovery:
+        namespace: ${spring.cloud.nacos.config.namespace}
+      config:
+        namespace: 51393449-7ea4-49db-abd4-c45edbc03c55 # 配置中心命名控件为开发环境
+        file-extension: yml # 配置文件格式
+  profiles:
+    active: dev # 环境标识
