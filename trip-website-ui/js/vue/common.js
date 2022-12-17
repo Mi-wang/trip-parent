@@ -3,22 +3,23 @@
 })*/
 
 //延长登录时间
-var token = Cookies.get("token");
-var user = Cookies.get("user");
+let token = Cookies.get("token");
+let user = Cookies.get("user");
 if(token&&user){
     Cookies.set('token', token, { expires: 1/48,path:'/'});
     Cookies.set('user', user, { expires: 1/48,path:'/'});
 }
 
+let gateway = "http://localhost:9000"
+
 //api ip与端口
-var serverUrlMap = {
-    member : "http://localhost:8081",
+let serverUrlMap = {
+    member : `${gateway}/uaa`,
     article : "http://localhost:8082",
     data : "http://localhost:8083",
     comment : "http://localhost:8084",
     search : "http://localhost:8085",
     gateway : "http://localhost:9000"
-
 }
 function getServiceUrl(service){
     return serverUrlMap[service]
@@ -36,7 +37,7 @@ function ajaxRequest(server, url,type, param, success, fail){
 
     //{a:1, b:2,c:3, d:4, sign:xxx}
 
-    var token = getToken();
+    let token = getToken();
     $.ajax({
         type: type,
 
@@ -90,14 +91,14 @@ function ajaxPost(server, url, params, success, fail){
 //获取url上的请求参数
 function getParams() {
     //获取问号及问号后面的内容
-    var url = window.location.search;
-    var params = new Object();
+    let url = window.location.search;
+    let params = new Object();
     if (url.indexOf("?") != -1) {
         //截取问号后面的内容,再使用&分割多个属性
-        var arr = url.substr(1).split("&");
-        for (var i = 0; i < arr.length; i++) {
+        let arr = url.substr(1).split("&");
+        for (let i = 0; i < arr.length; i++) {
             //使用=分割为keyvalue
-            var keyValue = arr[i].split("=");
+            let keyValue = arr[i].split("=");
             params[keyValue[0]] = keyValue[1];
         }
     }
@@ -106,9 +107,9 @@ function getParams() {
 
 //获取用户信息
 function getUserInfo(){
-    var userString = Cookies.get('user') ;
+    let userString = Cookies.get('user') ;
     if(userString){
-        var user = JSON.parse(userString);
+        let user = JSON.parse(userString);
 
         for(p in user){
             if(typeof(p)=='string'){
@@ -193,10 +194,10 @@ $(function () {
 });
 
 function getIndexTime(){
-    var yy = new Date().getFullYear();
-    var mm = new Date().getMonth()+1;
-    var dd = new Date().getDate();
-    var my = '';
+    let yy = new Date().getFullYear();
+    let mm = new Date().getMonth()+1;
+    let dd = new Date().getDate();
+    let my = '';
     if(mm == 1){
         my = 'Jan';
     }else if(mm == 2){
@@ -233,7 +234,7 @@ function searchByType(type, keyword) {
         popup("请先输入搜索关键字");
         return;
     }
-    var html = '';
+    let html = '';
     if(type == 0){
         html = 'searchDest.html';
     }else if(type == 1){
@@ -250,9 +251,9 @@ function searchByType(type, keyword) {
 }
 
 function getSignString(param) {
-    var sdic=Object.keys(param).sort();
-    var signStr = "";
-    for(var i in sdic){
+    let sdic=Object.keys(param).sort();
+    let signStr = "";
+    for(let i in sdic){
         if(i == 0){
             signStr +=sdic[i]+"="+param[sdic[i]];
         }else{

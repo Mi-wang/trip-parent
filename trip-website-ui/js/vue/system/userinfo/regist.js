@@ -1,11 +1,11 @@
-var vue = new Vue({
+let vue = new Vue({
   el:"#app",
   data:{
   },
   methods:{
     //注册-手机检查
     phoneCheck:function (){
-      var val = $('#inputPhone').val();
+      let val = $('#inputPhone').val();
       //js 正则表达语法:
       //    / /g  : 正则表达式对象
       // ^1  以1开头
@@ -33,14 +33,14 @@ var vue = new Vue({
     },
     //注册-发送短信
     sendCode:function (event){
-      var _this = $(event.target);//事件源
+      let _this = $(event.target);//事件源
       if (_this.hasClass('disabled')) {
       } else {
-        var self = _this;
-        var count = 10;
+        let self = _this;
+        let count = 10;
         self.addClass('disabled')
         self.text(count + '秒后重新获取')
-        var timer = setInterval(function () {
+        let timer = setInterval(function () {
           count--;
           if (count > 0) {
             self.text(count + '秒后重新获取');
@@ -51,8 +51,8 @@ var vue = new Vue({
           }
         }, 1000);
 
-        var phone = $("#phone").val();
-        $.get(getServiceUrl("member") + "/userInfos/sendVerifyCode", {phone:phone}, function (data) {
+        let phone = $("#phone").val();
+        $.post(getServiceUrl("member") + "/sms/send", {phone:phone, type: 'REGISTER'}, function (data) {
           if(data.code == 200){
             popup("发送成功")
           }else{

@@ -1,7 +1,7 @@
 
 
 //api ip与端口
-var serverUrlMap = {
+let serverUrlMap = {
     member : "http://localhost:8081",
     article : "http://localhost:8082",
     data : "http://localhost:8083",
@@ -77,14 +77,14 @@ function ajaxPost(server, url, params, success, fail){
 //获取url上的请求参数
 function getParams() {
     //获取问号及问号后面的内容
-    var url = window.location.search;
-    var params = new Object();
+    let url = window.location.search;
+    let params = new Object();
     if (url.indexOf("?") != -1) {
         //截取问号后面的内容,再使用&分割多个属性
-        var arr = url.substr(1).split("&");
-        for (var i = 0; i < arr.length; i++) {
+        let arr = url.substr(1).split("&");
+        for (let i = 0; i < arr.length; i++) {
             //使用=分割为keyvalue
-            var keyValue = arr[i].split("=");
+            let keyValue = arr[i].split("=");
             params[keyValue[0]] = keyValue[1];
         }
     }
@@ -132,10 +132,10 @@ function buildPage(current, totalPages, doPage){
 
 
 function getIndexTime(){
-    var yy = new Date().getFullYear();
-    var mm = new Date().getMonth()+1;
-    var dd = new Date().getDate();
-    var my = '';
+    let yy = new Date().getFullYear();
+    let mm = new Date().getMonth()+1;
+    let dd = new Date().getDate();
+    let my = '';
     if(mm == 1){
         my = 'Jan';
     }else if(mm == 2){
@@ -167,10 +167,10 @@ function getIndexTime(){
 
 
 function tooltip (value) {
-    var _value = value ? value : "-";
+    let _value = value ? value : "-";
     if (_value.length > 20) {
         _value = _value.substr(0, 20) + "...";
-        var action = [];
+        let action = [];
         action.push('<span title="'+value+'">'+_value+'</span>');
         return action.join("");
     }

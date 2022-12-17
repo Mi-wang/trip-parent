@@ -1,6 +1,7 @@
 package cn.wolfcode.utils;
 
 import cn.wolfcode.exception.ServiceException;
+import org.springframework.util.StringUtils;
 
 /**
  * @author wby
@@ -18,6 +19,12 @@ public class AssertUtils {
 
     public static void notNull(Object obj, String msg) {
         if (obj == null) {
+            throw new ServiceException(msg);
+        }
+    }
+
+    public static void notEmpty(String content, String msg) {
+        if (StringUtils.isEmpty(content)) {
             throw new ServiceException(msg);
         }
     }
