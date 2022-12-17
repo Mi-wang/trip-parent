@@ -2,12 +2,16 @@ package cn.wolfcode.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author wby
  * @version 1.0
  * @date 2022/12/15 11:34
  */
+@Getter
+@Setter
 public class UserInfo extends BaseDomain {
     public static final int GENDER_SECRET = 0; //保密
     public static final int GENDER_MALE = 1;   //男

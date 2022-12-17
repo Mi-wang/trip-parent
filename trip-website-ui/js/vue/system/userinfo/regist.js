@@ -15,9 +15,9 @@ var vue = new Vue({
       //  [3456789]  代码 3 4 5 6 7 8 9 中一个数
       //   /^1[3456789]\d{9}$/
       if (/^1\d{10}$/g.test(val)) {
-        $.get(getServiceUrl("member") + "/users/phone/exists", {phone:val}, function (data) {
-          if(data.code == 200){
-            if(!data.data){
+        $.post(getServiceUrl("member") + "/users/phone/exists", {phone:val}, function (res) {
+          if(res.code === 200){
+            if(!res.data){
               $('#inputPhone').next().text('').hide()
               $('.login-box').hide()
               $('.signup-box').show()
