@@ -1,6 +1,7 @@
 package cn.wolfcode.domain;
 
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@TableName("userinfo")
 public class UserInfo extends BaseDomain {
     public static final int GENDER_SECRET = 0; //保密
     public static final int GENDER_MALE = 1;   //男
