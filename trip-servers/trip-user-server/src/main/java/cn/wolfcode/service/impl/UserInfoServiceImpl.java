@@ -6,6 +6,7 @@ import cn.wolfcode.dto.UserRegisterDTO;
 import cn.wolfcode.mapper.UserInfoMapper;
 import cn.wolfcode.service.IUserInfoService;
 import cn.wolfcode.utils.AssertUtils;
+import cn.wolfcode.utils.JwtUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.mindrot.jbcrypt.BCrypt;
@@ -13,6 +14,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author wby
@@ -24,6 +28,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @Override
     public UserInfo getByPhone(String phone) {
@@ -55,5 +62,27 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userInfo.setPassword(enpass);
 
         super.save(userInfo);
+    }
+
+    @Override
+    public Map<String, Object> login(String username, String password) {
+        // 1. 校验用户名是否正确
+        UserInfo info = getOne(new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getPhone, username));
+        AssertUtils.notNull(info, "用户名或密码错误");
+
+        // 2. 校验密码是否正确（数据库的密码是加密的）
+        // BCrypt.checkpw(前端未加密的密码， 数据库中已加密的密码)
+        AssertUtils.isTrue(BCrypt.checkpw(password, info.getPassword()), "用户名或密码错误");
+
+        // 3. 生成 token
+        // 4. 以 token 为 key，用户为 value 保存到 redis
+        // 5. 利用 Jwt 创建 token，将自己生成的 token 存入 Jwt
+        String token = jwtUtils.createToken(info);
+
+        // 6. 封装 Jwt 的 token 与用户对象到 map 中
+        Map<String, Object> result = new HashMap<>();
+        result.put("token", token);
+        result.put("user", info);
+        return result;
     }
 }

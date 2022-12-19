@@ -4,6 +4,8 @@ import cn.wolfcode.domain.UserInfo;
 import cn.wolfcode.dto.UserRegisterDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.Map;
+
 /**
  * @author wby
  * @version 1.0
@@ -22,4 +24,13 @@ public interface IUserInfoService extends IService<UserInfo> {
      * @param registerDTO 前端传递的注册参数
      */
     void register(UserRegisterDTO registerDTO);
+
+    /**
+     * 登录接口
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return 登录成功的 token 与用户信息
+     */
+    Map<String, Object> login(String username, String password);
 }
