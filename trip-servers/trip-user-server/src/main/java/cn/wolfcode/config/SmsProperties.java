@@ -13,6 +13,9 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "sms")
 public class SmsProperties {
 
+    private String sign;
+    private String appKey;
+    private String url;
     private Map<String, String> typeMsg;
 
     public Map<String, String> getTypeMsg() {
@@ -21,5 +24,29 @@ public class SmsProperties {
 
     public void setTypeMsg(Map<String, String> typeMsg) {
         this.typeMsg = typeMsg;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

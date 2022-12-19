@@ -21,7 +21,7 @@ public class RedisConfig {
         // 设置 redis key 的序列化方式为 String
         template.setKeySerializer(new StringRedisSerializer());
         // 设置 value 的序列化方式为 jdk 的序列化
-//        template.setValueSerializer(new JdkSerializationRedisSerializer());
+        // template.setValueSerializer(new JdkSerializationRedisSerializer());
         // 设置 value 的序列化方式为 jdk 的序列化
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         // 设置 hash 类型的 value 序列化方式

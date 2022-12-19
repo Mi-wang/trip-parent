@@ -17,22 +17,27 @@
         <module>trip-app-backend-server</module>
     </modules>
 
+    <description>聚合服务的父项目, 用于管理聚合服务的依赖</description>
+
     <dependencies>
         <!-- 自己的依赖 -->
         <dependency>
             <groupId>cn.wolfcode</groupId>
-            <artifactId>trip-common</artifactId>
+            <artifactId>trip-common-core</artifactId>
         </dependency>
+        <!-- 参数校验依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
         <!-- web 依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-        <!-- nacos 服务发现/配置客户端 -->
+
+        <!-- nacos 服务发现/配置客户端-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -41,10 +46,16 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-        <!-- fegin 客户端 -->
+
+        <!-- feign 客户端 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 </project>
