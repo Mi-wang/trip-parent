@@ -1,6 +1,7 @@
 package cn.wolfcode.service;
 
 import cn.wolfcode.domain.UserInfo;
+import cn.wolfcode.dto.UserRegisterDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -15,4 +16,10 @@ public interface IUserInfoService extends IService<UserInfo> {
      * @return
      */
     UserInfo getByPhone(String phone);
+
+    /**
+     * 用户注册功能
+     * @param registerDTO 前端传递的注册参数
+     */
+    void register(UserRegisterDTO registerDTO);
 }

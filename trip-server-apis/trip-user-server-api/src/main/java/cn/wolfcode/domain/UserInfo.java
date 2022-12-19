@@ -26,6 +26,8 @@ public class UserInfo extends BaseDomain {
     private String email;  //邮箱
 
 
+    // json 序列化， 忽略这个属性
+    // RequestBody 将 json 序列化为 Java 对象 / @ResponseBody 将 java 对象序列化为 json 字符串
     @JsonIgnore
     private String password; //密码
     private Integer gender = GENDER_SECRET; //性别

@@ -1,6 +1,7 @@
 package cn.wolfcode.controller;
 
 import cn.wolfcode.domain.UserInfo;
+import cn.wolfcode.dto.UserRegisterDTO;
 import cn.wolfcode.service.IUserInfoService;
 import cn.wolfcode.vo.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -30,7 +32,11 @@ public class UserInfoController extends BaseController {
             @NotNull(message = "手机号不能为空")
             String phone) {
         UserInfo userInfo = userInfoServer.getByPhone(phone);
-
-        return success(userInfo!=null);
+        return success(userInfo != null);
+    };
+    @PostMapping("/register")
+    public ResponseEntity<AjaxResult<Object>> register(@Valid UserRegisterDTO registerDTO) {
+        userInfoServer.register(registerDTO);
+        return success();
     };
 }

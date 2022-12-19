@@ -18,6 +18,10 @@ public class AssertUtils {
     }
 
     public static void notNull(Object obj, String msg) {
+        if (obj instanceof String) {
+            notEmpty(obj.toString(), msg);
+            return;
+        }
         if (obj == null) {
             throw new ServiceException(msg);
         }
@@ -25,6 +29,12 @@ public class AssertUtils {
 
     public static void notEmpty(String content, String msg) {
         if (StringUtils.isEmpty(content)) {
+            throw new ServiceException(msg);
+        }
+    }
+
+    public static void isNull(Object obj, String msg) {
+        if (obj != null) {
             throw new ServiceException(msg);
         }
     }

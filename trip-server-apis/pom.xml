@@ -32,6 +32,8 @@
             <groupId>cn.wolfcode</groupId>
             <artifactId>trip-common</artifactId>
         </dependency>
+
+        <!-- 参数校验依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
