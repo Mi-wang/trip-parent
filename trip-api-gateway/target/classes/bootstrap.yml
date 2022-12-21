@@ -9,5 +9,8 @@ spring:
       config:
         namespace: 51393449-7ea4-49db-abd4-c45edbc03c55 # 配置中心命名控件为开发环境
         file-extension: yml # 配置文件格式
+        shared-configs:
+          - trip-common-redis-dev.yml
+          - trip-jwt-auth-dev.yml
   profiles:
     active: dev # 环境标识

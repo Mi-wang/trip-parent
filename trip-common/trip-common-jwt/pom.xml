@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>trip-common</artifactId>
+        <groupId>cn.wolfcode</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>trip-common-jwt</artifactId>
+
+    <dependencies>
+        <!-- Token生成与解析-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+
+        <!-- 引入公共的 redis 模块 -->
+        <dependency>
+            <artifactId>trip-common-redis</artifactId>
+            <groupId>cn.wolfcode</groupId>
+        </dependency>
+
+        <!-- 依赖用户 api -->
+        <dependency>
+            <artifactId>trip-user-server-api</artifactId>
+            <groupId>cn.wolfcode</groupId>
+        </dependency>
+
+        <!-- spring boot 核心依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>

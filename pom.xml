@@ -99,6 +99,11 @@
                 <artifactId>trip-common-redis</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <artifactId>trip-common-jwt</artifactId>
+                <groupId>cn.wolfcode</groupId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- Token生成与解析-->
             <dependency>

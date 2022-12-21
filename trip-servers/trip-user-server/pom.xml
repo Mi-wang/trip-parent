@@ -19,16 +19,10 @@
             <groupId>cn.wolfcode</groupId>
         </dependency>
 
-        <!-- 用户服务引入 redis 模块 -->
+        <!-- 引入公共的 jwt 模块 -->
         <dependency>
-            <artifactId>trip-common-redis</artifactId>
+            <artifactId>trip-common-jwt</artifactId>
             <groupId>cn.wolfcode</groupId>
-        </dependency>
-
-        <!-- Token生成与解析-->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
         </dependency>
 
         <!-- 数据库相关依赖 -->
@@ -53,5 +47,6 @@
             <version>0.4</version>
         </dependency>
     </dependencies>
+
 
 </project>

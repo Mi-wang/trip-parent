@@ -11,5 +11,12 @@
 
     <artifactId>trip-user-server-api</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.wolfcode</groupId>
+            <artifactId>trip-common-redis</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -35,6 +35,13 @@
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
         </dependency>
+
+        <!-- 引入公共的 jwt 模块 -->
+        <dependency>
+            <artifactId>trip-common-jwt</artifactId>
+            <groupId>cn.wolfcode</groupId>
+        </dependency>
     </dependencies>
+
 
 </project>

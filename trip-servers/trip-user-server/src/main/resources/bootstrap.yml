@@ -11,6 +11,7 @@ spring:
         file-extension: yml # 配置文件格式
         shared-configs:
           - trip-common-redis-dev.yml
+          - trip-jwt-auth-dev.yml
   profiles:
     active: dev # 环境标识
 #  redis:

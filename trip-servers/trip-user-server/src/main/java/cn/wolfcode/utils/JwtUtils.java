@@ -161,9 +161,4 @@ public class JwtUtils {
     private String getToken(HttpServletRequest request) {
         return request.getHeader(header);
     }
-
-    private String getTokenKey(String uuid) {
-        // 存入 redis 的 key == login_user_key:{uuid}
-        return UserRedisPrefix.USER_LOGIN_INFO.join(uuid);
-    }
 }

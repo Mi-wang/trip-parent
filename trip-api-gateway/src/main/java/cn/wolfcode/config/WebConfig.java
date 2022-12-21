@@ -1,5 +1,6 @@
 package cn.wolfcode.config;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -13,6 +14,7 @@ import org.springframework.web.util.pattern.PathPatternParser;
  * @date 2022/12/17 16:37
  */
 @Configuration
+@EnableConfigurationProperties(AuthProperties.class)
 public class WebConfig {
 
     /*@Bean

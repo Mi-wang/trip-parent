@@ -1,6 +1,7 @@
 package cn.wolfcode.service.impl;
 
 import cn.wolfcode.utils.TokenService;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 1.0
  * @date 2022/12/21 18:04
  */
+@Service
 public class UserTokenService extends TokenService {
 
     @Override
