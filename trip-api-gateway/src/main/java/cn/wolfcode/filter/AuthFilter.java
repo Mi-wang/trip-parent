@@ -5,6 +5,7 @@ import cn.wolfcode.domain.UserInfo;
 import cn.wolfcode.service.GatewayTokenService;
 import cn.wolfcode.vo.AjaxResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -22,6 +23,7 @@ import java.nio.charset.StandardCharsets;
  * @version 1.0
  * @date 2022/12/20 10:21
  */
+@RefreshScope
 @Component
 public class AuthFilter implements GlobalFilter {
 

@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: trip-travel-server
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848 #nacos中心地址
+      discovery:
+        namespace: ${spring.cloud.nacos.config.namespace}
+      config:
+        namespace: 51393449-7ea4-49db-abd4-c45edbc03c55 # 配置中心命名控件为开发环境
+        file-extension: yml # 配置文件格式
+  profiles:
+    active: dev # 环境标识
+#  redis:
+#    port: 6379
+#    host: 82.157.68.93
+#    password: 5201314..cx
+#
+#sms:
+#  typeMsg:
+#    REGISTER: '【狼行天下】欢迎注册狼行天下旅游平台, 以下是您的验证码: %s, 请在 30 分钟内完成注册.'
+#    CHANGEPASS: '【狼行天下】请注意, 您正在修改密码, 请确认该操作是您本人进行的, 以下是您的验证码: %s, 30 分钟后验证码将失效.'
