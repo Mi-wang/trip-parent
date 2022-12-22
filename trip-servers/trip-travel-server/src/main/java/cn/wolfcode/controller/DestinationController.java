@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author wby
  * @version 1.0
@@ -32,6 +34,12 @@ public class DestinationController {
     public AjaxResult<?> query(DestinationQuery qo) {
         Page<Destination> page = destinationService.queryPage(qo);
         return AjaxResult.success(page);
+    }
+
+    @GetMapping("/toasts")
+    public AjaxResult<?> queryToasts(Long destId) {
+        List<Destination> list = destinationService.queryToasts(destId);
+        return AjaxResult.success(list);
     }
 }
 

@@ -25,7 +25,7 @@ var vue = new Vue({
             this.queryRegion(rid);
         },
         queryRegion:function (rid) {
-            ajaxGet("article","/regions/destination/",{rid:rid}, function (data) {
+            ajaxGet("article","/regions/destination",{rid:rid}, function (data) {
                 var list = data.data;
                 vue.regionId=rid;
                 var destListLeft = [];  //左边

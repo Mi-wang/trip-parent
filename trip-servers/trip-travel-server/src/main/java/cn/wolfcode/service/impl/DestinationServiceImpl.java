@@ -82,7 +82,8 @@ public class DestinationServiceImpl extends ServiceImpl<DestinationMapper, Desti
     public List<Destination> queryByRegionId(Long rid) {
         // 最终返回的数据
         List<Destination> list = null;
-        if (rid == -1) { // -1 代表查询国内
+        // -1 代表查询国内
+        if (rid == -1) {
             // 查询国内的热门目的地
             list = super.list(new LambdaQueryWrapper<Destination>().eq(Destination::getParentId, 1));
         } else {
@@ -90,7 +91,8 @@ public class DestinationServiceImpl extends ServiceImpl<DestinationMapper, Desti
             Region region = regionService.getById(rid);
 
             // 查询该热门区域下的所有热门目的地
-            List<Long> destIds = region.parseRefIds(); // 获取到区域对象管理的所有目的地 id
+            // 获取到区域对象管理的所有目的地 id
+            List<Long> destIds = region.parseRefIds();
             list = super.listByIds(destIds);
         }
 

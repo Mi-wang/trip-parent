@@ -5,6 +5,8 @@ import cn.wolfcode.query.BaseQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * @author wby
  * @version 1.0
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IRegionService extends IService<Region> {
 
     Page<Region> queryPage(BaseQuery qo);
+
+    List<Region> queryHotList();
+
 }

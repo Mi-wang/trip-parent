@@ -1,5 +1,6 @@
 package cn.wolfcode.controller;
 
+import cn.wolfcode.domain.Destination;
 import cn.wolfcode.domain.Region;
 import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.service.IDestinationService;
@@ -64,6 +65,18 @@ public class RegionController {
             regionService.removeById(id);
         }
         return AjaxResult.success();
+    }
+
+    @GetMapping("/destination")
+    public AjaxResult<?> dests(Long rid) {
+        List<Destination> list = destinationService.queryByRegionId(rid);
+        return AjaxResult.success(list);
+    }
+
+    @GetMapping("/hot")
+    public AjaxResult<?> hotList() {
+        List<Region> list = regionService.queryHotList();
+        return AjaxResult.success(list);
     }
 }
 

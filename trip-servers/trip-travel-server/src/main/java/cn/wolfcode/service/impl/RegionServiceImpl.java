@@ -5,12 +5,12 @@ import cn.wolfcode.mapper.RegionMapper;
 import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.service.IRegionService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
  * @author wby
@@ -28,5 +28,16 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
                 .like(StringUtils.hasLength(qo.getKeyword()), Region::getName, qo.getKeyword());
         // 分页查询方法
         return super.page(new Page<Region>(qo.getCurrentPage(), qo.getPageSize()), wrapper);
+    }
+
+    @Override
+    public List<Region> queryHotList() {
+        // 需求：查询所有热门区域，并且按照 seq 进行升序排序
+        return super.list(new LambdaQueryWrapper<Region>()
+                // 必须是热门区域才展示
+                .eq(Region::getIshot, Region.STATE_HOT)
+                // 按照 seq 升序排列
+                .orderByAsc(Region::getSeq)
+        );
     }
 }

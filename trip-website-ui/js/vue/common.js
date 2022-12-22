@@ -15,7 +15,7 @@ let gateway = "http://localhost:9000"
 //api ip与端口
 let serverUrlMap = {
     member : `${gateway}/uaa`,
-    article : "http://localhost:8082",
+    article : `${gateway}/article`,
     data : "http://localhost:8083",
     comment : "http://localhost:8084",
     search : "http://localhost:8085",
