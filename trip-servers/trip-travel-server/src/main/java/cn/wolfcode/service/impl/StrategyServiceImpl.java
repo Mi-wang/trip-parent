@@ -75,8 +75,10 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
             // 是否国外 =》 基于目的地的地点来判断是否是国外
             List<Destination> toasts = destinationService.queryToasts(entity.getDestId());
             if (toasts != null && toasts.size() > 0) {
-                Destination dest = toasts.get(0); // 最外层的国家对象
-                if (dest.getId() != 1) { // 如果国家的 id != 1 表示就是国外
+                // 最外层的国家对象
+                Destination dest = toasts.get(0);
+                // 如果国家的 id != 1 表示就是国外
+                if (dest.getId() != 1) {
                     entity.setIsabroad(Strategy.ABROAD_YES);
                 }
             }
@@ -84,13 +86,14 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
 
         // 创建时间
         entity.setCreateTime(new Date());
-        super.save(entity); // 保存
+        // 保存
+        super.save(entity);
 
         // 内容 =》 额外保存到内容表
         StrategyContent content = entity.getContent();
-        content.setId(entity.getId()); // 将 id 设置为主对象的 id
+        // 将 id 设置为主对象的 id
+        content.setId(entity.getId());
         strategyContentMapper.insert(entity.getContent());
-
         return true;
     }
 }

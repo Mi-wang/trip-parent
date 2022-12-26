@@ -1,4 +1,4 @@
-var vue = new Vue({
+let vue = new Vue({
     el:"#app",
     data:{
         themes:[],
@@ -8,7 +8,7 @@ var vue = new Vue({
     methods:{
         //初始化
         init:function (){
-            var imgFile = new ImgUploadeFiles('.box',function(e){
+            let imgFile = new ImgUploadeFiles('.box',function(e){
                 this.init({
                     MAX : 1,
                     MH : 5800, //像素限制高度
@@ -22,13 +22,10 @@ var vue = new Vue({
                 });
             });
 
-            var ck = CKEDITOR.replace( 'strategyContent',{
+            let ck = CKEDITOR.replace( 'strategyContent',{
                 filebrowserUploadUrl: getServiceUrl("article") + '/strategies/uploadImg'
             });
             this.ck = ck;
-
-            console.log(this.ck);
-
         },
         //查询主题
         queryTheme:function (){
@@ -43,9 +40,9 @@ var vue = new Vue({
             })
         },
         strategySave:function (){
-            var param = {};
-            var arrs = $("#form-article-add").serializeArray();
-            for (var i = 0; i < arrs.length; i++) {
+            let param = {};
+            let arrs = $("#form-article-add").serializeArray();
+            for (let i = 0; i < arrs.length; i++) {
                 param[arrs[i].name] = arrs[i].value;
             }
             param["content.content"] = vue.ck.getData();
