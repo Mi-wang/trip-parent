@@ -1,6 +1,7 @@
 package cn.wolfcode.controller;
 
 import cn.wolfcode.domain.Strategy;
+import cn.wolfcode.domain.StrategyContent;
 import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.service.IStrategyService;
 import cn.wolfcode.utils.OSSUtils;
@@ -9,6 +10,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @author wby
@@ -26,6 +29,18 @@ public class StrategyController {
     public AjaxResult<?> query(BaseQuery qo) {
         Page<Strategy> page = strategyService.queryPage(qo);
         return AjaxResult.success(page);
+    }
+
+    @GetMapping("/content")
+    public AjaxResult<?> content(Long id) {
+         StrategyContent content = strategyService.getContent(id);
+        return AjaxResult.success(content);
+    }
+
+    @GetMapping("/viewnnumTop3")
+    public AjaxResult<?> viewnnumTop3(Long destId) {
+        List<Strategy> top3 = strategyService.viewnnumTop3(destId);
+        return AjaxResult.success(top3);
     }
 
     @GetMapping("/detail")

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -95,6 +96,31 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
         content.setId(entity.getId());
         strategyContentMapper.insert(entity.getContent());
         return true;
+    }
+
+    @Override
+    public Strategy getById(Serializable id) {
+        Strategy strategy = super.getById(id);
+        StrategyContent content = strategyContentMapper.selectById(id);
+        strategy.setContent(content);
+        return strategy;
+    }
+
+    @Override
+    public StrategyContent getContent(Long id) {
+        return strategyContentMapper.selectById(id);
+    }
+
+    @Override
+    public List<Strategy> viewnnumTop3(Long destId) {
+        // 1. 基于 destId 查询
+        // 2. 按照浏览数排序(降序)
+        // 3. 取前三个
+
+        return list(new LambdaQueryWrapper<Strategy>()
+                .eq(Strategy::getDestId, destId)
+                .orderByDesc(Strategy::getViewnum)
+                .last("limit 3"));
     }
 }
 
