@@ -1,4 +1,4 @@
-let vue = new Vue({
+var vue = new Vue({
     el:"#app",
     data:{
         themes:[],
@@ -8,7 +8,7 @@ let vue = new Vue({
     methods:{
         //初始化
         init:function (){
-            let imgFile = new ImgUploadeFiles('.box',function(e){
+            var imgFile = new ImgUploadeFiles('.box',function(e){
                 this.init({
                     MAX : 1,
                     MH : 5800, //像素限制高度
@@ -22,7 +22,7 @@ let vue = new Vue({
                 });
             });
 
-            let ck = CKEDITOR.replace( 'strategyContent',{
+            var ck = CKEDITOR.replace( 'strategyContent',{
                 filebrowserUploadUrl: getServiceUrl("article") + '/strategies/uploadImg'
             });
             this.ck = ck;
@@ -40,9 +40,9 @@ let vue = new Vue({
             })
         },
         strategySave:function (){
-            let param = {};
-            let arrs = $("#form-article-add").serializeArray();
-            for (let i = 0; i < arrs.length; i++) {
+            var param = {};
+            var arrs = $("#form-article-add").serializeArray();
+            for (var i = 0; i < arrs.length; i++) {
                 param[arrs[i].name] = arrs[i].value;
             }
             param["content.content"] = vue.ck.getData();

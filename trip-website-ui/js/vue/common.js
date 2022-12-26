@@ -3,17 +3,17 @@
 })*/
 
 //延长登录时间
-let token = Cookies.get("token");
-let user = Cookies.get("user");
+var token = Cookies.get("token");
+var user = Cookies.get("user");
 if(token&&user){
     Cookies.set('token', token, { expires: 1/48,path:'/'});
     Cookies.set('user', user, { expires: 1/48,path:'/'});
 }
 
-let gateway = "http://localhost:9000"
+var gateway = "http://localhost:9000"
 
 //api ip与端口
-let serverUrlMap = {
+var serverUrlMap = {
     member : `${gateway}/uaa`,
     article : `${gateway}/article`,
     data : "http://localhost:8083",
@@ -37,7 +37,7 @@ function ajaxRequest(server, url,type, param, success, fail){
 
     //{a:1, b:2,c:3, d:4, sign:xxx}
 
-    let token = getToken();
+    var token = getToken();
     $.ajax({
         type: type,
 
@@ -91,14 +91,14 @@ function ajaxPost(server, url, params, success, fail){
 //获取url上的请求参数
 function getParams() {
     //获取问号及问号后面的内容
-    let url = window.location.search;
-    let params = new Object();
+    var url = window.location.search;
+    var params = new Object();
     if (url.indexOf("?") != -1) {
         //截取问号后面的内容,再使用&分割多个属性
-        let arr = url.substr(1).split("&");
-        for (let i = 0; i < arr.length; i++) {
+        var arr = url.substr(1).split("&");
+        for (var i = 0; i < arr.length; i++) {
             //使用=分割为keyvalue
-            let keyValue = arr[i].split("=");
+            var keyValue = arr[i].split("=");
             params[keyValue[0]] = keyValue[1];
         }
     }
@@ -107,9 +107,9 @@ function getParams() {
 
 //获取用户信息
 function getUserInfo(){
-    let userString = Cookies.get('user') ;
+    var userString = Cookies.get('user') ;
     if(userString){
-        let user = JSON.parse(userString);
+        var user = JSON.parse(userString);
 
         for(p in user){
             if(typeof(p)=='string'){
@@ -194,10 +194,10 @@ $(function () {
 });
 
 function getIndexTime(){
-    let yy = new Date().getFullYear();
-    let mm = new Date().getMonth()+1;
-    let dd = new Date().getDate();
-    let my = '';
+    var yy = new Date().getFullYear();
+    var mm = new Date().getMonth()+1;
+    var dd = new Date().getDate();
+    var my = '';
     if(mm == 1){
         my = 'Jan';
     }else if(mm == 2){
@@ -234,7 +234,7 @@ function searchByType(type, keyword) {
         popup("请先输入搜索关键字");
         return;
     }
-    let html = '';
+    var html = '';
     if(type == 0){
         html = 'searchDest.html';
     }else if(type == 1){
@@ -251,9 +251,9 @@ function searchByType(type, keyword) {
 }
 
 function getSignString(param) {
-    let sdic=Object.keys(param).sort();
-    let signStr = "";
-    for(let i in sdic){
+    var sdic=Object.keys(param).sort();
+    var signStr = "";
+    for(var i in sdic){
         if(i == 0){
             signStr +=sdic[i]+"="+param[sdic[i]];
         }else{

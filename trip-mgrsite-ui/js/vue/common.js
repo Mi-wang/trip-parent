@@ -1,7 +1,7 @@
 
-let gateway = "http://localhost:9000"
+var gateway = "http://localhost:9000"
 //api ip与端口
-let serverUrlMap = {
+var serverUrlMap = {
     member : `${gateway}/uaa`,
     article : `${gateway}/article`,
     data : "http://localhost:8083",
@@ -77,14 +77,14 @@ function ajaxPost(server, url, params, success, fail){
 //获取url上的请求参数
 function getParams() {
     //获取问号及问号后面的内容
-    let url = window.location.search;
-    let params = new Object();
+    var url = window.location.search;
+    var params = new Object();
     if (url.indexOf("?") != -1) {
         //截取问号后面的内容,再使用&分割多个属性
-        let arr = url.substr(1).split("&");
-        for (let i = 0; i < arr.length; i++) {
+        var arr = url.substr(1).split("&");
+        for (var i = 0; i < arr.length; i++) {
             //使用=分割为keyvalue
-            let keyValue = arr[i].split("=");
+            var keyValue = arr[i].split("=");
             params[keyValue[0]] = keyValue[1];
         }
     }
@@ -132,10 +132,10 @@ function buildPage(current, totalPages, doPage){
 
 
 function getIndexTime(){
-    let yy = new Date().getFullYear();
-    let mm = new Date().getMonth()+1;
-    let dd = new Date().getDate();
-    let my = '';
+    var yy = new Date().getFullYear();
+    var mm = new Date().getMonth()+1;
+    var dd = new Date().getDate();
+    var my = '';
     if(mm == 1){
         my = 'Jan';
     }else if(mm == 2){
@@ -167,10 +167,10 @@ function getIndexTime(){
 
 
 function tooltip (value) {
-    let _value = value ? value : "-";
+    var _value = value ? value : "-";
     if (_value.length > 20) {
         _value = _value.substr(0, 20) + "...";
-        let action = [];
+        var action = [];
         action.push('<span title="'+value+'">'+_value+'</span>');
         return action.join("");
     }

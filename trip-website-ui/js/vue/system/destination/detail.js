@@ -27,7 +27,7 @@ var vue = new Vue({
         },
         //查询点击量前三
         queryViewnnumTop3:function (){
-            ajaxGet("article","/destinations/strategies/viewnnumTop3", {destId:this.param.id}, function (data) {
+            ajaxGet("article","/strategies/viewnnumTop3", {destId:this.param.id}, function (data) {
                 vue.strategies = data.data;
             })
 
