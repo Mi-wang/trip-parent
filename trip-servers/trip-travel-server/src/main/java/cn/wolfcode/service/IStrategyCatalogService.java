@@ -20,4 +20,6 @@ public interface IStrategyCatalogService extends IService<StrategyCatalog> {
     Page<StrategyCatalog> queryPage(BaseQuery qo);
 
     List<CatalogGroupVO> groupList();
+
+    List<StrategyCatalog> queryCatalogsByDestId(Long destId);
 }

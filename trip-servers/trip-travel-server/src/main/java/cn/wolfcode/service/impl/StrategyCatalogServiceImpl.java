@@ -1,17 +1,17 @@
 package cn.wolfcode.service.impl;
 
-import cn.wolfcode.domain.Region;
+import cn.wolfcode.domain.Strategy;
 import cn.wolfcode.domain.StrategyCatalog;
-import cn.wolfcode.mapper.RegionMapper;
 import cn.wolfcode.mapper.StrategyCatalogMapper;
 import cn.wolfcode.query.BaseQuery;
-import cn.wolfcode.service.IRegionService;
 import cn.wolfcode.service.IStrategyCatalogService;
+import cn.wolfcode.service.IStrategyService;
 import cn.wolfcode.vo.CatalogGroupVO;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -27,6 +27,10 @@ import java.util.stream.Collectors;
  */
 @Service
 public class StrategyCatalogServiceImpl extends ServiceImpl<StrategyCatalogMapper, StrategyCatalog> implements IStrategyCatalogService {
+
+
+    @Autowired
+    private IStrategyService strategyService;
 
     @Override
     public Page<StrategyCatalog> queryPage(BaseQuery qo) {
@@ -64,5 +68,17 @@ public class StrategyCatalogServiceImpl extends ServiceImpl<StrategyCatalogMappe
             voList.add(groupVO);
         }
         return voList;
+    }
+
+    @Override
+    public List<StrategyCatalog> queryCatalogsByDestId(Long destId) {
+        // 基于目的地 id 查询分类列表
+        List<StrategyCatalog> catalogs = list(new LambdaQueryWrapper<StrategyCatalog>().eq(StrategyCatalog::getDestId, destId));
+        // 遍历分类列表 基于分类id 擦汗寻攻略列表
+        for (StrategyCatalog catalog : catalogs) {
+            List<Strategy> strategies = strategyService.list(new LambdaQueryWrapper<Strategy>().eq(Strategy::getCatalogId, catalog.getId()));
+            catalog.setStrategies(strategies);
+        }
+        return catalogs;
     }
 }
