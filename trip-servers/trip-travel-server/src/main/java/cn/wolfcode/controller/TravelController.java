@@ -2,6 +2,7 @@ package cn.wolfcode.controller;
 
 import cn.wolfcode.domain.Travel;
 import cn.wolfcode.query.BaseQuery;
+import cn.wolfcode.query.TravelQuery;
 import cn.wolfcode.service.ITravelService;
 import cn.wolfcode.vo.AjaxResult;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -26,6 +27,17 @@ public class TravelController {
         Page<Travel> page = travelService.queryPage(qo);
         return AjaxResult.success(page);
     }
+    @GetMapping("/content")
+    public AjaxResult<?> content(Long id) {
+        return AjaxResult.success(travelService.getContent(id));
+    }
+
+    @PostMapping("/audit")
+    public AjaxResult<?> audit(Long id, Integer state) {
+        travelService.audit(id, state);
+        return AjaxResult.success();
+    }
+
 
     @GetMapping("/detail")
     public AjaxResult<?> detail(Long id) {
