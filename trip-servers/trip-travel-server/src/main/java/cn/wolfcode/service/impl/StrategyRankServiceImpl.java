@@ -85,4 +85,9 @@ public class StrategyRankServiceImpl extends ServiceImpl<StrategyRankMapper, Str
         // 批量保存
         super.saveBatch(ranks);
     }
+
+    @Override
+    public List<StrategyRank> queryByType(int type) {
+        return list(new LambdaQueryWrapper<StrategyRank>().eq(StrategyRank::getType,type));
+    }
 }

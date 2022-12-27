@@ -23,5 +23,7 @@ public interface IStrategyRankService extends IService<StrategyRank> {
     void insertRanks(int type, List<Strategy> strategies);
 
     void insertRanks(int type, List<Strategy> strategies, Function<Strategy, Long> statnumFun);
+
+    List<StrategyRank> queryByType(int type);
 }
 

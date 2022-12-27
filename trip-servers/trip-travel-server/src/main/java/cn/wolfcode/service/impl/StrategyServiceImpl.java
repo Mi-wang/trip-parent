@@ -9,6 +9,7 @@ import cn.wolfcode.service.IDestinationService;
 import cn.wolfcode.service.IStrategyCatalogService;
 import cn.wolfcode.service.IStrategyService;
 import cn.wolfcode.service.IStrategyThemeService;
+import cn.wolfcode.task.StrategyConditionTask;
 import cn.wolfcode.utils.OSSUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -41,6 +42,16 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
 
     @Override
     public Page<Strategy> queryPage(StrategyQuery qo) {
+        if (qo.getType() > 0 && qo.getRefid() > 0) {
+            if (qo.getType() == StrategyCondition.TYPE_ABROAD || qo.getType() == StrategyCondition.TYPE_CHINA) {
+                // 查询目的地
+                qo.setDestId(qo.getRefid());
+            } else {
+                // 查询主题
+                qo.setThemeId(qo.getRefid());
+            }
+        }
+
         // 条件构造器
         LambdaQueryWrapper<Strategy> wrapper = new LambdaQueryWrapper<Strategy>()
                 // 目的地查询
@@ -49,7 +60,9 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
                 .eq(qo.getThemeId() != null, Strategy::getThemeId, qo.getThemeId())
                 // like(condition, column, value)
                 // 当 condition 成立时，才会将这个条件拼接在 sql 语句上
-                .like(StringUtils.hasLength(qo.getKeyword()), Strategy::getTitle, qo.getKeyword());
+                .like(StringUtils.hasLength(qo.getKeyword()), Strategy::getTitle, qo.getKeyword())
+                // 手动拼接排序 sql
+                .last("order by " + qo.getOrderBy() + " desc");
 
         // 分页方法
         return super.page(new Page<>(qo.getCurrentPage(), qo.getPageSize()), wrapper);
