@@ -140,13 +140,13 @@ var vue = new Vue({
         },
         //攻略点击量前3
         queryStrViewnnumTop3:function(){
-            ajaxGet("article","/destinations/strategies/viewnnumTop3",{destId:this.param.destId}, function (data) {
+            ajaxGet("article","/strategies/viewnnumTop3",{destId:this.param.destId}, function (data) {
                 vue.strategies = data.data;
             });
         },
         //游记点击量前3
         queryTravelViewnnumTop3:function(){
-            ajaxGet("article","/destinations/travels/viewnnumTop3",{destId:this.param.destId}, function (data) {
+            ajaxGet("article","/travels/viewnnumTop3",{destId:this.param.destId}, function (data) {
                 vue.travels = data.data;
             })
         }

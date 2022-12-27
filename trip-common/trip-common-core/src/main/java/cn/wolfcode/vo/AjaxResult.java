@@ -87,7 +87,7 @@ public class AjaxResult<T> extends HashMap<String, Object> {
     }
 
     public boolean hasError() {
-        return !DEFAULT_FAILED_CODE.equals(getCode());
+        return DEFAULT_FAILED_CODE.equals(getCode());
     }
 
 

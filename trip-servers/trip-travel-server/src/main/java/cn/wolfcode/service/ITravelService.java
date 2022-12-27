@@ -4,6 +4,7 @@ import cn.wolfcode.domain.Region;
 import cn.wolfcode.domain.Travel;
 import cn.wolfcode.domain.TravelContent;
 import cn.wolfcode.query.BaseQuery;
+import cn.wolfcode.query.TravelQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -16,10 +17,11 @@ import java.util.List;
  */
 public interface ITravelService extends IService<Travel> {
 
-    Page<Travel> queryPage(BaseQuery qo);
+    Page<Travel> queryPage(TravelQuery qo);
 
     TravelContent getContent(Long id);
 
     void audit(Long id, Integer state);
 
+    List<Travel> viewnnumTop3();
 }

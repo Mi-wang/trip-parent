@@ -23,13 +23,18 @@ public class TravelController {
 
 
     @GetMapping("/query")
-    public AjaxResult<?> query(BaseQuery qo) {
+    public AjaxResult<?> query(TravelQuery qo) {
         Page<Travel> page = travelService.queryPage(qo);
         return AjaxResult.success(page);
     }
     @GetMapping("/content")
     public AjaxResult<?> content(Long id) {
         return AjaxResult.success(travelService.getContent(id));
+    }
+
+    @GetMapping("/viewnnumTop3")
+    public AjaxResult<?> viewnnumTop3() {
+        return AjaxResult.success(travelService.viewnnumTop3());
     }
 
     @PostMapping("/audit")
