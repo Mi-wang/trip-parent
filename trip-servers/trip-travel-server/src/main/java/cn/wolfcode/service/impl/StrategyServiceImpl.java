@@ -4,6 +4,7 @@ import cn.wolfcode.domain.*;
 import cn.wolfcode.mapper.StrategyContentMapper;
 import cn.wolfcode.mapper.StrategyMapper;
 import cn.wolfcode.query.BaseQuery;
+import cn.wolfcode.query.StrategyQuery;
 import cn.wolfcode.service.IDestinationService;
 import cn.wolfcode.service.IStrategyCatalogService;
 import cn.wolfcode.service.IStrategyService;
@@ -39,9 +40,13 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
     private StrategyContentMapper strategyContentMapper;
 
     @Override
-    public Page<Strategy> queryPage(BaseQuery qo) {
+    public Page<Strategy> queryPage(StrategyQuery qo) {
         // 条件构造器
         LambdaQueryWrapper<Strategy> wrapper = new LambdaQueryWrapper<Strategy>()
+                // 目的地查询
+                .eq(qo.getDestId() != null, Strategy::getDestId, qo.getDestId())
+                // 主题查询
+                .eq(qo.getThemeId() != null, Strategy::getThemeId, qo.getThemeId())
                 // like(condition, column, value)
                 // 当 condition 成立时，才会将这个条件拼接在 sql 语句上
                 .like(StringUtils.hasLength(qo.getKeyword()), Strategy::getTitle, qo.getKeyword());

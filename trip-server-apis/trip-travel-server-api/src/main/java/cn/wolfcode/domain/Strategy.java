@@ -47,19 +47,42 @@ public class Strategy extends BaseDomain {
 
     private Integer isabroad = ABROAD_NO;  // 是否是国外
 
-    private Integer viewnum;  // 点击数
+    private Integer viewnum = 0;  // 点击数
 
-    private Integer replynum;  // 攻略评论数
+    private Integer replynum = 0;  // 攻略评论数
 
-    private Integer favornum; // 收藏数
+    private Integer favornum = 0; // 收藏数
 
-    private Integer sharenum; // 分享数
+    private Integer sharenum = 0; // 分享数
 
-    private Integer thumbsupnum; // 点赞个数
+    private Integer thumbsupnum = 0; // 点赞个数
 
     private Integer state = STATE_NORMAL;  // 状态
 
     @TableField(exist = false)
     private StrategyContent content; // 攻略内容
 
+    private int getInt(Integer num) {
+        return num == null ? 0 : num;
+    }
+
+    public Integer getViewnum() {
+        return getInt(viewnum);
+    }
+
+    public Integer getReplynum() {
+        return getInt(replynum);
+    }
+
+    public Integer getFavornum() {
+        return getInt(favornum);
+    }
+
+    public Integer getSharenum() {
+        return getInt(sharenum);
+    }
+
+    public Integer getThumbsupnum() {
+        return getInt(thumbsupnum);
+    }
 }

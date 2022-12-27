@@ -3,6 +3,7 @@ package cn.wolfcode.service;
 import cn.wolfcode.domain.Strategy;
 import cn.wolfcode.domain.StrategyContent;
 import cn.wolfcode.query.BaseQuery;
+import cn.wolfcode.query.StrategyQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public interface IStrategyService extends IService<Strategy> {
 
-    Page<Strategy> queryPage(BaseQuery qo);
+    Page<Strategy> queryPage(StrategyQuery qo);
 
     StrategyContent getContent(Long id);
 

@@ -3,6 +3,7 @@ package cn.wolfcode.controller;
 import cn.wolfcode.domain.Strategy;
 import cn.wolfcode.domain.StrategyContent;
 import cn.wolfcode.query.BaseQuery;
+import cn.wolfcode.query.StrategyQuery;
 import cn.wolfcode.service.IStrategyService;
 import cn.wolfcode.utils.OSSUtils;
 import cn.wolfcode.vo.AjaxResult;
@@ -26,7 +27,7 @@ public class StrategyController {
     private IStrategyService strategyService;
 
     @GetMapping("/query")
-    public AjaxResult<?> query(BaseQuery qo) {
+    public AjaxResult<?> query(StrategyQuery qo) {
         Page<Strategy> page = strategyService.queryPage(qo);
         return AjaxResult.success(page);
     }

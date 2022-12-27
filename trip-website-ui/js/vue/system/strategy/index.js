@@ -17,10 +17,10 @@ var vue = new Vue({
         //攻略排行
         queryRank:function (type){
             //攻略排行--热门攻略  List<StrategyRank> list;
-            ajaxGet("article","/strategyRanks/rank", {type:type}, function (data) {
-                if(type == 1){
+            ajaxGet("article","/strategies/ranks", {type:type}, function (data) {
+                if(type === 1){
                     vue.abroadRank = data.data;
-                }else if(type == 2){
+                }else if(type === 2){
                     vue.chinaRank = data.data;
                 }else {
                     vue.hotRank = data.data;
