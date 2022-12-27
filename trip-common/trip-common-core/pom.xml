@@ -36,6 +36,11 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+
         <!-- 需要 mybatis plus 的注解 -->
         <dependency>
             <groupId>com.baomidou</groupId>

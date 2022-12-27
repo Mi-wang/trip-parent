@@ -2,6 +2,7 @@ package cn.wolfcode.vo;
 
 import cn.wolfcode.constants.HttpStatus;
 import cn.wolfcode.exception.Wolf2wException;
+import org.apache.commons.beanutils.BeanUtils;
 
 import java.util.HashMap;
 
@@ -25,6 +26,8 @@ public class AjaxResult<T> extends HashMap<String, Object> {
     public static final String CODE_NAME = "code";
     public static final String MSG_NAME = "msg";
     public static final String DATA_NAME = "data";
+
+    public AjaxResult() {}
 
     public AjaxResult(Integer code, String msg, T data) {
         super.put(CODE_NAME, code);
@@ -82,4 +85,34 @@ public class AjaxResult<T> extends HashMap<String, Object> {
     public static <T> AjaxResult<T> failed() {
         return failed(DEFAULT_FAILED_MSG);
     }
+
+    public boolean hasError() {
+        return !DEFAULT_FAILED_CODE.equals(getCode());
+    }
+
+
+    public Integer getCode() {
+        return (Integer) super.get(CODE_NAME);
+    }
+
+    public String getMsg() {
+        return (String) super.get(MSG_NAME);
+    }
+
+    public Object getData() {
+        return super.get(DATA_NAME);
+    }
+
+    public T getData(Class<T> clazz) {
+        T t = null;
+        try {
+            Object ret = super.get(DATA_NAME);
+            t = clazz.newInstance();
+            BeanUtils.copyProperties(t, ret);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return t;
+    }
+
 }

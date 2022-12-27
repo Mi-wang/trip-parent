@@ -7,9 +7,7 @@ import cn.wolfcode.vo.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -29,6 +27,10 @@ public class UserInfoController extends BaseController {
     @Autowired
     private IUserInfoService userInfoService;
 
+    @GetMapping("/{id}")
+    public AjaxResult<UserInfo> getById(@PathVariable Long id) {
+        return AjaxResult.success(userInfoService.getById(id));
+    }
 
     @PostMapping("/login")
     public ResponseEntity<AjaxResult<Map<String, Object>>> login(
