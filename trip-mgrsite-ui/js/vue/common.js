@@ -1,5 +1,6 @@
 
-var gateway = "http://localhost:9000"
+let gateway = "http://localhost:9000";
+
 //api ip与端口
 var serverUrlMap = {
     member : `${gateway}/uaa`,

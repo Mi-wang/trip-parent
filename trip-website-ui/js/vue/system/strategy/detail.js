@@ -60,7 +60,7 @@ var vue = new Vue({
         //评论点赞
         commentThumb:function(commentId){
             var page = $("#pagination").find("a.active").html()||1;
-            ajaxPost("comment","/strategyComments/thumb",{cid:commentId}, function (data) {
+            ajaxPost("comment","/strategies/comments/thumb",{cid:commentId}, function (data) {
                 vue.commentPage(page,getParams().id);
             })
         },
@@ -75,7 +75,7 @@ var vue = new Vue({
         //评论分页
         commentPage:function (page,strategyId) {//分页
             strategyId = strategyId || vue.strategy.id;
-            ajaxGet("comment","/strategyComments/query", {currentPage:page, strategyId:strategyId}, function(data){
+            ajaxGet("comment","/strategies/comments/query", {currentPage:page, strategyId:strategyId}, function(data){
                 vue.page = data.data;
                 buildPage(vue.page.current, vue.page.pages,vue.commentPage);
             })
@@ -94,7 +94,7 @@ var vue = new Vue({
             param.content = content;
             $("#content").val('');
 
-            ajaxPost("comment", "/strategyComments/save",param, function (data) {
+            ajaxPost("comment", "/strategies/comments/save",param, function (data) {
                 vue.commentPage(1,param.strategyId);
 
                 //评论数+1

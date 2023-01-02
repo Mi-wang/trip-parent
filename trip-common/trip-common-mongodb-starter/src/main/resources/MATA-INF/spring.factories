@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.wolfcode.mongo.config.Wolf2wMongoAutoConfiguration

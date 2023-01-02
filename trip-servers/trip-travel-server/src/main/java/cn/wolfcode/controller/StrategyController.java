@@ -4,9 +4,11 @@ import cn.wolfcode.domain.Strategy;
 import cn.wolfcode.domain.StrategyContent;
 import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.query.StrategyQuery;
+import cn.wolfcode.redis.key.ArticleRedisPrefix;
 import cn.wolfcode.service.IStrategyService;
 import cn.wolfcode.utils.OSSUtils;
 import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.ArticleStatVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +55,12 @@ public class StrategyController {
     public AjaxResult<?> save(Strategy Strategy) {
         strategyService.save(Strategy);
         return AjaxResult.success();
+    }
+
+    @PostMapping("/veiwnumIncr")
+    public AjaxResult<?> veiwnumIncr(Long sid) {
+        ArticleStatVo vo = strategyService.veiwnumIncr(sid);
+        return AjaxResult.success(vo);
     }
 
     @PostMapping("/uploadImg")

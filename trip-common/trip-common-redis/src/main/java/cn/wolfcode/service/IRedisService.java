@@ -2,8 +2,11 @@ package cn.wolfcode.service;
 
 import cn.wolfcode.key.KeyPrefix;
 
+import java.util.Map;
+
 /**
  * 专门用于访问 redis 的服务
+ *
  * @author 20463
  */
 public interface IRedisService<K extends KeyPrefix, V> {
@@ -22,4 +25,21 @@ public interface IRedisService<K extends KeyPrefix, V> {
      * 删除一个 key
      */
     void del(K prefix, String... suffix);
+
+    /**
+     *
+     * @param prefix 前缀
+     * @param hashFiled hash 字段
+     * @param value    原子性增加得值
+     * @param suffix   后缀
+     */
+    void hincr(K prefix, String hashFiled, V value, String... suffix);
+
+    /**
+     * 获取整个hash对象
+     * @param prefix hash 前缀
+     * @param suffix hash 后缀
+     * @return 完整得 hash 对象
+     */
+    Map<Object, V> hgetAll(K prefix, String... suffix);
 }

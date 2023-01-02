@@ -1,27 +1,30 @@
 package cn.wolfcode.service.impl;
 
 import cn.wolfcode.domain.*;
+import cn.wolfcode.key.KeyPrefix;
 import cn.wolfcode.mapper.StrategyContentMapper;
 import cn.wolfcode.mapper.StrategyMapper;
 import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.query.StrategyQuery;
-import cn.wolfcode.service.IDestinationService;
-import cn.wolfcode.service.IStrategyCatalogService;
-import cn.wolfcode.service.IStrategyService;
-import cn.wolfcode.service.IStrategyThemeService;
+import cn.wolfcode.redis.key.ArticleRedisPrefix;
+import cn.wolfcode.service.*;
 import cn.wolfcode.task.StrategyConditionTask;
 import cn.wolfcode.utils.OSSUtils;
+import cn.wolfcode.vo.ArticleStatVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wby
@@ -39,6 +42,8 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
     private IDestinationService destinationService;
     @Resource
     private StrategyContentMapper strategyContentMapper;
+    @Autowired
+    private IRedisService<KeyPrefix, Object> redisService;
 
     @Override
     public Page<Strategy> queryPage(StrategyQuery qo) {
@@ -139,6 +144,22 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
                 .eq(Strategy::getDestId, destId)
                 .orderByDesc(Strategy::getViewnum)
                 .last("limit 3"));
+    }
+
+    @Override
+    public ArticleStatVo veiwnumIncr(Long sid) {
+        redisService.hincr(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX, "viewnum", 1L, sid+"");
+        Map<Object, Object> hash = redisService.hgetAll(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX,sid + "");
+        ArticleStatVo vo = new ArticleStatVo();
+        vo.setArticleId(sid);
+        try {
+            BeanUtils.copyProperties(vo, hash);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vo;
     }
 }
 

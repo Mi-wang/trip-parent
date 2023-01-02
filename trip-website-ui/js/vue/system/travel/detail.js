@@ -106,7 +106,7 @@ var vue = new Vue({
             $("#commentTpye").val(0);
             $("#refCommentId").val("");
 
-            ajaxPost("comment","/travelComments/save",param, function (data) {
+            ajaxPost("comment","/strategies/travels/save",param, function (data) {
                 $("#commentContent").val("");
                 $("#commentContent").attr("placeholder","");
 
@@ -117,7 +117,7 @@ var vue = new Vue({
         queryComments:function (travelId) {
             travelId = travelId || getParams().id;
             //游记评论不分页
-            ajaxGet("comment","/travelComments/query",{travelId:travelId}, function (data) {
+            ajaxGet("comment","/strategies/travels/query",{travelId:travelId}, function (data) {
                 vue.comments = data.data;
             })
         },

@@ -17,7 +17,7 @@ var serverUrlMap = {
     member : `${gateway}/uaa`,
     article : `${gateway}/article`,
     data : "http://localhost:8083",
-    comment : "http://localhost:8084",
+    comment : `${gateway}/cmt`,
     search : "http://localhost:8085",
     gateway : "http://localhost:9000"
 }
@@ -32,7 +32,7 @@ function ajaxRequest(server, url,type, param, success, fail){
 
     //通过js操作将加密之后的签名手动添加到参数中去
 
-     //{a:1, b:2,c:3, d:4}
+    //{a:1, b:2,c:3, d:4}
     //param.sign = getSignString(param);  //使用逻辑处理
 
     //{a:1, b:2,c:3, d:4, sign:xxx}
@@ -166,31 +166,31 @@ function buildPage(current, totalPages, doPage){
     })
 }
 $(function () {
-  $('._j_close').click(function () {
-    $('#_j_layer_0').hide();
-  })
+    $('._j_close').click(function () {
+        $('#_j_layer_0').hide();
+    })
 
-  /*$('.collect_icon').click(function () {
-    if ($(this).hasClass('on-i02')) {
-      $('#_j_layer_0').show();
-      $('.collect_icon').removeClass('on-i02')
-    } else {
-      $(this).addClass('on-i02');
-    }
-  });*/
-  $(window).scroll(function () {
-    if ($(this).scrollTop() > 280) {
-      $('.toolbar-item-top').show();
-    } else {
-      $('.toolbar-item-top').hide();
-    };
-  });
-  $('.toolbar-item-top').click(function () {
-    $('html, body').animate({
-      scrollTop: 0
-    }, 250);
-    return false;
-  });
+    /*$('.collect_icon').click(function () {
+      if ($(this).hasClass('on-i02')) {
+        $('#_j_layer_0').show();
+        $('.collect_icon').removeClass('on-i02')
+      } else {
+        $(this).addClass('on-i02');
+      }
+    });*/
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 280) {
+            $('.toolbar-item-top').show();
+        } else {
+            $('.toolbar-item-top').hide();
+        };
+    });
+    $('.toolbar-item-top').click(function () {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 250);
+        return false;
+    });
 });
 
 function getIndexTime(){

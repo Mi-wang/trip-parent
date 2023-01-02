@@ -11,26 +11,24 @@
 
     <artifactId>trip-comment-server</artifactId>
 
+    <description>评论微服务</description>
+
     <dependencies>
         <dependency>
             <artifactId>trip-comment-server-api</artifactId>
             <groupId>cn.wolfcode</groupId>
         </dependency>
 
-        <!-- 数据库相关依赖 -->
+        <!-- 自己封装的自动装配模块 -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <groupId>cn.wolfcode</groupId>
+            <artifactId>trip-common-mongodb-starter</artifactId>
         </dependency>
 
+        <!-- 引入公共的 jwt 模块 -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <artifactId>trip-common-jwt</artifactId>
+            <groupId>cn.wolfcode</groupId>
         </dependency>
     </dependencies>
 

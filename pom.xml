@@ -105,6 +105,13 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <artifactId>trip-common-mongodb-starter</artifactId>
+                <groupId>cn.wolfcode</groupId>
+                <version>${project.version}</version>
+            </dependency>
+
+
             <!-- Token生成与解析-->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>

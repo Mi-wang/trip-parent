@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 /**
  * @author 20463
  */
@@ -34,5 +36,15 @@ public class RedisTemplateService implements IRedisService<KeyPrefix, Object> {
     @Override
     public void del(KeyPrefix prefix, String... suffix) {
         redisTemplate.delete(prefix.join(suffix));
+    }
+
+    @Override
+    public void hincr(KeyPrefix prefix, String hashFiled, Object value, String... suffix) {
+        redisTemplate.opsForHash().increment(prefix.join(suffix), hashFiled, (Long)value);
+    }
+
+    @Override
+    public Map<Object, Object> hgetAll(KeyPrefix prefix, String... suffix) {
+        return redisTemplate.opsForHash().entries(prefix.join(suffix));
     }
 }
