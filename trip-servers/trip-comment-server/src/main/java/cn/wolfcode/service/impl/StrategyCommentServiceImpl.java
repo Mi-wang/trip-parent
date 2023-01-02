@@ -4,8 +4,11 @@ import cn.wolfcode.domain.StrategyComment;
 import cn.wolfcode.domain.UserInfo;
 import cn.wolfcode.mongo.utils.MongoPageTemplate;
 import cn.wolfcode.query.StrategyCommentQuery;
+import cn.wolfcode.redis.key.ArticleRedisPrefix;
 import cn.wolfcode.repository.StrategyCommentRepository;
+import cn.wolfcode.service.IRedisService;
 import cn.wolfcode.service.IStrategyCommentService;
+import cn.wolfcode.vo.ArticleStatVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -30,7 +33,8 @@ public class StrategyCommentServiceImpl implements IStrategyCommentService {
     private MongoPageTemplate mongoPageTemplate;
     @Autowired
     private StrategyCommentRepository strategyCommentRepository;
-
+    @Autowired
+    private IRedisService redisService;
     @Override
     public Page<StrategyComment> page(StrategyCommentQuery qo) {
         // 构建查询条件
@@ -52,6 +56,9 @@ public class StrategyCommentServiceImpl implements IStrategyCommentService {
         // 2. 创建时间
         comment.setCreateTime(new Date());
         strategyCommentRepository.save(comment);
+
+        redisService.hincr(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX,
+                ArticleStatVo.REPLY_NUM,1L,comment.getStrategyId() + "");
     }
 
     @Override

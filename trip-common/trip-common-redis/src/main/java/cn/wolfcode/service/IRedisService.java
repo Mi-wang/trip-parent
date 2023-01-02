@@ -42,4 +42,6 @@ public interface IRedisService<K extends KeyPrefix, V> {
      * @return 完整得 hash 对象
      */
     Map<Object, V> hgetAll(K prefix, String... suffix);
+
+    Boolean isMember(K prefix, V value, String... suffix);
 }

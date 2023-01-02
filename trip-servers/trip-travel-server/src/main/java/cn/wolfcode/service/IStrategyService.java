@@ -25,4 +25,6 @@ public interface IStrategyService extends IService<Strategy> {
     List<Strategy> viewnnumTop3(Long destId);
 
     ArticleStatVo veiwnumIncr(Long sid);
+
+    Boolean isFavor(Long strategyId, Long id);
 }

@@ -164,5 +164,11 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
         }
         return vo;
     }
+
+    @Override
+    public Boolean isFavor(Long strategyId, Long userId) {
+        return redisService.isMember(ArticleRedisPrefix.STRATEGIES_FAVOR_SET, userId, strategyId + "");
+
+    }
 }
 

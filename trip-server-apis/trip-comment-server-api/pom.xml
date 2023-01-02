@@ -17,6 +17,10 @@
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>cn.wolfcode</groupId>
+            <artifactId>trip-travel-server-api</artifactId>
+        </dependency>
     </dependencies>
 
 

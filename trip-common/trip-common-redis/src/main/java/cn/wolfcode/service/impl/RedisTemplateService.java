@@ -47,4 +47,9 @@ public class RedisTemplateService implements IRedisService<KeyPrefix, Object> {
     public Map<Object, Object> hgetAll(KeyPrefix prefix, String... suffix) {
         return redisTemplate.opsForHash().entries(prefix.join(suffix));
     }
+
+    @Override
+    public Boolean isMember(KeyPrefix prefix, Object value, String... suffix) {
+        return redisTemplate.opsForSet().isMember(prefix.join(suffix), value);
+    }
 }
