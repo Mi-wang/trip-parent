@@ -148,8 +148,11 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
 
     @Override
     public ArticleStatVo veiwnumIncr(Long sid) {
-        redisService.hincr(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX, "viewnum", 1L, sid+"");
+        // 先执行阅读数 +1 操作
+        redisService.hincr(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX, ArticleStatVo.VIEW_NUM, 1L, sid+"");
+        // 将 hash 对象查询出来
         Map<Object, Object> hash = redisService.hgetAll(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX,sid + "");
+        // 将其转换为 vo 对象
         ArticleStatVo vo = new ArticleStatVo();
         vo.setArticleId(sid);
         try {

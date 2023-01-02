@@ -12,11 +12,11 @@ import lombok.Setter;
 @Setter
 public class ArticleStatVo {
 
-    private static final String VIEW_NUM = "viewnum";
-    private static final String REPLY_NUM = "replynum";
-    private static final String FAVOR_NUM = "favornum";
-    private static final String SHARE_NUM = "sharenum";
-    private static final String THUMBS_NUM = "thumbsupnum";
+    public static final String VIEW_NUM = "viewnum";
+    public static final String REPLY_NUM = "replynum";
+    public static final String FAVOR_NUM = "favornum";
+    public static final String SHARE_NUM = "sharenum";
+    public static final String THUMBS_NUM = "thumbsupnum";
 
     private Long articleId;
     private int viewnum;
