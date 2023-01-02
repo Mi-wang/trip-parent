@@ -41,7 +41,7 @@ var vue = new Vue({
         favor:function(){
             ajaxPost("article", "/strategies/favornumIncr",{sid:vue.strategy.id}, function (data) {
                 var map = data.data;
-                if(map.result){
+                if(data.result){
                     popup("收藏成功");
                 }else{
                     popup("已取消收藏");

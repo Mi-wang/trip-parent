@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class StrategyController {
 
     @GetMapping("/content")
     public AjaxResult<?> content(Long id) {
-         StrategyContent content = strategyService.getContent(id);
+        StrategyContent content = strategyService.getContent(id);
         return AjaxResult.success(content);
     }
 
@@ -58,15 +59,23 @@ public class StrategyController {
     }
 
     @GetMapping("/isUserFavor")
-    public AjaxResult<Boolean> isUserFavor(Long sid, HttpServletResponse req) {
+    public AjaxResult<Boolean> isUserFavor(Long sid, HttpServletRequest req) {
         UserInfo user = userTokenService.getLoginUser(req);
         if (user == null) {
             throw new AuthException("用户尚未登录");
         }
-        Boolean ret = strategyService.isFavor(sid,user.getId());
+        Boolean ret = strategyService.isFavor(sid, user.getId());
         return AjaxResult.success(ret);
     }
 
+    @PostMapping("/favornumIncr")
+    public AjaxResult<ArticleStatVo> favornumIncr(Long sid, HttpServletRequest req) {
+        UserInfo user = userTokenService.getLoginUser(req);
+        if (user == null) {
+            throw new AuthException("用户尚未登录");
+        }
+        return strategyService.favornumIncr(sid, user.getId());
+    }
     @PostMapping("/save")
     public AjaxResult<?> save(Strategy Strategy) {
         strategyService.save(Strategy);

@@ -10,6 +10,7 @@ import cn.wolfcode.redis.key.ArticleRedisPrefix;
 import cn.wolfcode.service.*;
 import cn.wolfcode.task.StrategyConditionTask;
 import cn.wolfcode.utils.OSSUtils;
+import cn.wolfcode.vo.AjaxResult;
 import cn.wolfcode.vo.ArticleStatVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -149,9 +150,9 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
     @Override
     public ArticleStatVo veiwnumIncr(Long sid) {
         // 先执行阅读数 +1 操作
-        redisService.hincr(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX, ArticleStatVo.VIEW_NUM, 1L, sid+"");
+        redisService.hincr(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX, ArticleStatVo.VIEW_NUM, 1L, sid + "");
         // 将 hash 对象查询出来
-        Map<Object, Object> hash = redisService.hgetAll(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX,sid + "");
+        Map<Object, Object> hash = redisService.hgetAll(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX, sid + "");
         // 将其转换为 vo 对象
         ArticleStatVo vo = new ArticleStatVo();
         vo.setArticleId(sid);
@@ -168,7 +169,38 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
     @Override
     public Boolean isFavor(Long strategyId, Long userId) {
         return redisService.isMember(ArticleRedisPrefix.STRATEGIES_FAVOR_SET, userId, strategyId + "");
+    }
 
+    @Override
+    public AjaxResult<ArticleStatVo> favornumIncr(Long strategyId, Long userId) {
+        AjaxResult<ArticleStatVo> ret = AjaxResult.success();
+
+        // 判断当前用户是否已经收藏文章
+        Boolean favor = this.isFavor(strategyId, userId);
+        if (favor) {
+            // 已经收藏:
+            // 将用户从原先的 set 集合中删除
+            redisService.sdel(ArticleRedisPrefix.STRATEGIES_FAVOR_SET, userId, strategyId + "");
+            // 收藏数 -1
+            redisService.hincr(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX,
+                    ArticleStatVo.FAVOR_NUM, -1L, strategyId + "");
+            // 如果已经收藏, 返回 result 为 false, 表示取消收藏
+            ret.put("result", false);
+        } else {
+            // 没收藏:
+            // 将用户加入 set 集合
+            redisService.sadd(ArticleRedisPrefix.STRATEGIES_FAVOR_SET, userId, strategyId + "");
+            // 收藏数 +1
+            redisService.hincr(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX,
+                    ArticleStatVo.FAVOR_NUM, 1L, strategyId + "");
+            // 如果没有收藏, 返回 result 为 true, 表示收藏
+            ret.put("result", true);
+        }
+        // 无论是否收藏, 都返回最新的统计数据
+        Map<Object, Object> map = redisService.hgetAll(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX, strategyId + "");
+        ret.put("data", map);
+        //  回结果
+        return ret;
     }
 }
 

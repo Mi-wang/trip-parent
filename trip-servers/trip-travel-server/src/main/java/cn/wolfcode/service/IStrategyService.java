@@ -5,6 +5,7 @@ import cn.wolfcode.domain.StrategyContent;
 import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.query.StrategyQuery;
 import cn.wolfcode.redis.key.ArticleRedisPrefix;
+import cn.wolfcode.vo.AjaxResult;
 import cn.wolfcode.vo.ArticleStatVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -26,5 +27,7 @@ public interface IStrategyService extends IService<Strategy> {
 
     ArticleStatVo veiwnumIncr(Long sid);
 
-    Boolean isFavor(Long strategyId, Long id);
+    Boolean isFavor(Long strategyId, Long userId);
+
+    AjaxResult<ArticleStatVo> favornumIncr(Long strategyId, Long userId);
 }

@@ -52,4 +52,13 @@ public class RedisTemplateService implements IRedisService<KeyPrefix, Object> {
     public Boolean isMember(KeyPrefix prefix, Object value, String... suffix) {
         return redisTemplate.opsForSet().isMember(prefix.join(suffix), value);
     }
+    @Override
+    public void sdel(KeyPrefix prefix, Object value, String... suffix) {
+        redisTemplate.opsForSet().remove(prefix.join(suffix), value);
+    }
+
+    @Override
+    public void sadd(KeyPrefix prefix, Object value, String... suffix) {
+        redisTemplate.opsForSet().add(prefix.join(suffix), value);
+    }
 }

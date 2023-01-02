@@ -1,5 +1,6 @@
 package cn.wolfcode;
 
+import cn.wolfcode.mongo.utils.MongoPageTemplate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

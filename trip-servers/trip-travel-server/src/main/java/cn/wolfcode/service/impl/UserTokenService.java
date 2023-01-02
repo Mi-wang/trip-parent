@@ -15,7 +15,7 @@ public class UserTokenService extends TokenService {
     @Override
     protected String getToken(Object request) {
         if (request instanceof HttpServletRequest) {
-            ((HttpServletRequest) request).getHeader(super.header);
+            return ((HttpServletRequest) request).getHeader(super.header);
         }
         return null;
     }
