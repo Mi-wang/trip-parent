@@ -58,7 +58,7 @@ public class StrategyCommentServiceImpl implements IStrategyCommentService {
         strategyCommentRepository.save(comment);
 
         redisService.hincr(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX,
-                ArticleStatVo.REPLY_NUM,1L,comment.getStrategyId() + "");
+                ArticleStatVo.REPLAY_NUM,1L,comment.getStrategyId() + "");
     }
 
     @Override

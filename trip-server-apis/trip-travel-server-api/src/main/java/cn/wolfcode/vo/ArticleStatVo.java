@@ -13,7 +13,7 @@ import lombok.Setter;
 public class ArticleStatVo {
 
     public static final String VIEW_NUM = "viewnum";
-    public static final String REPLY_NUM = "replynum";
+    public static final String REPLAY_NUM = "replynum";
     public static final String FAVOR_NUM = "favornum";
     public static final String SHARE_NUM = "sharenum";
     public static final String THUMBS_NUM = "thumbsupnum";

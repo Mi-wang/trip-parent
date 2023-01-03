@@ -29,6 +29,7 @@ public interface IRedisService<K extends KeyPrefix, V> {
 
     /**
      * Hash 自增命令
+     *
      * @param prefix    前缀
      * @param hashFiled hash 字段
      * @param value     原子性增加的值
@@ -38,6 +39,7 @@ public interface IRedisService<K extends KeyPrefix, V> {
 
     /**
      * 获取整个 hash 对象
+     *
      * @param prefix hash 前缀
      * @param suffix hash 后缀
      * @return 完整的 hash 对象
@@ -53,6 +55,7 @@ public interface IRedisService<K extends KeyPrefix, V> {
      * @return true代表存在, false代表不存在
      */
     Boolean isMember(K prefix, V value, String... suffix);
+
     /**
      * 删除 set 中的指定成员
      *
@@ -84,9 +87,19 @@ public interface IRedisService<K extends KeyPrefix, V> {
 
     /**
      * 判断 key 是否存在
-     * @param prefix    前缀
-     * @param suffix    后缀
-     * @return  是否存在
+     *
+     * @param prefix 前缀
+     * @param suffix 后缀
+     * @return 是否存在
      */
     Boolean exists(K prefix, String... suffix);
+
+    /**
+     * 一次性往 hash 中 put 多个键值对
+     *
+     * @param prefix 前缀
+     * @param map    要存入的键值对 map
+     * @param suffix 后缀
+     */
+    void hputAll(K prefix, Map<String, Object> map, String... suffix);
 }

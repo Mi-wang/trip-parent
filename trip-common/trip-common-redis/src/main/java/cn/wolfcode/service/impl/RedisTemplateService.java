@@ -41,7 +41,7 @@ public class RedisTemplateService implements IRedisService<KeyPrefix, Object> {
 
     @Override
     public void hincr(KeyPrefix prefix, String hashFiled, Object value, String... suffix) {
-        redisTemplate.opsForHash().increment(prefix.join(suffix), hashFiled, (Long)value);
+        redisTemplate.opsForHash().increment(prefix.join(suffix), hashFiled, (Long) value);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class RedisTemplateService implements IRedisService<KeyPrefix, Object> {
     public Boolean isMember(KeyPrefix prefix, Object value, String... suffix) {
         return redisTemplate.opsForSet().isMember(prefix.join(suffix), value);
     }
+
     @Override
     public void sdel(KeyPrefix prefix, Object value, String... suffix) {
         redisTemplate.opsForSet().remove(prefix.join(suffix), value);
@@ -71,5 +72,10 @@ public class RedisTemplateService implements IRedisService<KeyPrefix, Object> {
     @Override
     public Boolean exists(KeyPrefix prefix, String... suffix) {
         return redisTemplate.hasKey(prefix.join(suffix));
+    }
+
+    @Override
+    public void hputAll(KeyPrefix prefix, Map<String, Object> map, String... suffix) {
+        redisTemplate.opsForHash().putAll(prefix.join(suffix), map);
     }
 }

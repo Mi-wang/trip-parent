@@ -18,14 +18,23 @@ public class RedisConfig {
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+
+        // 外部 key/value 的序列化方式
         // 设置 redis key 的序列化方式为 String
-        template.setKeySerializer(new StringRedisSerializer());
+        template.setKeySerializer(stringRedisSerializer);
         // 设置 value 的序列化方式为 jdk 的序列化
         // template.setValueSerializer(new JdkSerializationRedisSerializer());
         // 设置 value 的序列化方式为 jdk 的序列化
-        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        template.setValueSerializer(genericJackson2JsonRedisSerializer);
+
+        // hash key/value 的序列化方式
         // 设置 hash 类型的 value 序列化方式
-        template.setHashValueSerializer(new StringRedisSerializer());
+        template.setHashKeySerializer(stringRedisSerializer);
+        // 设置 hash 类型的 value 序列化方式
+        template.setHashValueSerializer(genericJackson2JsonRedisSerializer);
+
         template.setConnectionFactory(redisConnectionFactory);
         return template;
     }
