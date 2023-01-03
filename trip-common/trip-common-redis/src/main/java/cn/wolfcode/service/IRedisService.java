@@ -3,6 +3,7 @@ package cn.wolfcode.service;
 import cn.wolfcode.key.KeyPrefix;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 专门用于访问 redis 的服务
@@ -69,4 +70,23 @@ public interface IRedisService<K extends KeyPrefix, V> {
      * @param suffix 后缀
      */
     void sadd(K prefix, V value, String... suffix);
+
+
+    /**
+     * 设置 key 过期时间
+     *
+     * @param prefix     前缀
+     * @param expireTime 过期时间
+     * @param unit       单位
+     * @param suffix     后缀
+     */
+    void expire(K prefix, long expireTime, TimeUnit unit, String... suffix);
+
+    /**
+     * 判断 key 是否存在
+     * @param prefix    前缀
+     * @param suffix    后缀
+     * @return  是否存在
+     */
+    Boolean exists(K prefix, String... suffix);
 }

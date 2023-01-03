@@ -76,6 +76,14 @@ public class StrategyController {
         }
         return strategyService.favornumIncr(sid, user.getId());
     }
+    @PostMapping("/thumbnumIncr")
+    public AjaxResult<ArticleStatVo> thumbnumIncr(Long sid, HttpServletRequest req) {
+        UserInfo user = userTokenService.getLoginUser(req);
+        if (user == null) {
+            throw new AuthException("用户尚未登录");
+        }
+        return strategyService.thumbnumIncr(sid, user.getId());
+    }
     @PostMapping("/save")
     public AjaxResult<?> save(Strategy Strategy) {
         strategyService.save(Strategy);

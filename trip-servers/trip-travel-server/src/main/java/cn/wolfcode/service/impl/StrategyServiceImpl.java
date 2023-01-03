@@ -4,11 +4,9 @@ import cn.wolfcode.domain.*;
 import cn.wolfcode.key.KeyPrefix;
 import cn.wolfcode.mapper.StrategyContentMapper;
 import cn.wolfcode.mapper.StrategyMapper;
-import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.query.StrategyQuery;
 import cn.wolfcode.redis.key.ArticleRedisPrefix;
 import cn.wolfcode.service.*;
-import cn.wolfcode.task.StrategyConditionTask;
 import cn.wolfcode.utils.OSSUtils;
 import cn.wolfcode.vo.AjaxResult;
 import cn.wolfcode.vo.ArticleStatVo;
@@ -22,10 +20,12 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author wby
@@ -201,6 +201,44 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
         ret.put("data", map);
         //  回结果
         return ret;
+    }
+
+    @Override
+    public AjaxResult<ArticleStatVo> thumbnumIncr(Long strategyId, Long userId) {
+        // 构建结果对象, 直接设置 result 默认为 false
+        AjaxResult<ArticleStatVo> result = AjaxResult.success();
+        result.put("result", false);
+
+        // 判断用户是否已经置顶
+        Boolean thumb = redisService.isMember(ArticleRedisPrefix.STRATEGIES_THUMB_SET, userId, strategyId + "");
+
+        // 2. 如果没有置顶
+        if (!thumb) {
+            // 设置过期时间(时间为今天的最后一秒)
+            Boolean exists = redisService.exists(ArticleRedisPrefix.STRATEGIES_THUMB_SET, strategyId + "");
+
+            // 将用户加入置顶的 set 集合
+            redisService.sadd(ArticleRedisPrefix.STRATEGIES_THUMB_SET, userId, strategyId + "");
+
+            if (!exists) {
+                // 当 key 不存在时才设置过期时间
+                LocalDateTime startTime = LocalDateTime.now();
+                LocalDateTime endTime = LocalDateTime.of(startTime.getYear(), startTime.getMonth(), startTime.getDayOfMonth(), 23, 59, 59);
+                Duration between = Duration.between(startTime, endTime);
+
+                redisService.expire(ArticleRedisPrefix.STRATEGIES_THUMB_SET, between.getSeconds(), TimeUnit.SECONDS, strategyId + "");
+            }
+            // 置顶数 +1
+            redisService.hincr(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX,
+                    ArticleStatVo.THUMBS_NUM, 1L, strategyId + "");
+            // 设置 result 为 true
+            result.put("result", true);
+        }
+        // 如果置顶了, 就不管
+        Map<Object, Object> map = redisService.hgetAll(ArticleRedisPrefix.STRATEGIES_STAT_PREFIX, strategyId + "");
+        // 查询所有统计数据, 并封装对象返回
+        result.put("data", map);
+        return result;
     }
 }
 

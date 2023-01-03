@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 20463
@@ -60,5 +61,15 @@ public class RedisTemplateService implements IRedisService<KeyPrefix, Object> {
     @Override
     public void sadd(KeyPrefix prefix, Object value, String... suffix) {
         redisTemplate.opsForSet().add(prefix.join(suffix), value);
+    }
+
+    @Override
+    public void expire(KeyPrefix prefix, long expireTime, TimeUnit unit, String... suffix) {
+        redisTemplate.expire(prefix.join(suffix), expireTime, unit);
+    }
+
+    @Override
+    public Boolean exists(KeyPrefix prefix, String... suffix) {
+        return redisTemplate.hasKey(prefix.join(suffix));
     }
 }

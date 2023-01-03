@@ -29,7 +29,7 @@ var vue = new Vue({
         strategyThumbup:function(){
             ajaxPost("article", "/strategies/thumbnumIncr",{sid:vue.strategy.id}, function (data) {
                 var map = data.data;
-                if(map.result){
+                if(data.result){
                     popup("顶成功啦");
                 }else{
                     popup("今天你已经顶过了");

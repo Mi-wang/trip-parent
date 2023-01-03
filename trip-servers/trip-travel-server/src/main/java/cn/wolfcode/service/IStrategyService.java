@@ -30,4 +30,6 @@ public interface IStrategyService extends IService<Strategy> {
     Boolean isFavor(Long strategyId, Long userId);
 
     AjaxResult<ArticleStatVo> favornumIncr(Long strategyId, Long userId);
+
+    AjaxResult<ArticleStatVo> thumbnumIncr(Long strategyId, Long userId);
 }

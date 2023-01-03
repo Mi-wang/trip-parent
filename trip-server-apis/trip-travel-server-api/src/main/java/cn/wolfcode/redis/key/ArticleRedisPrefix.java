@@ -16,7 +16,13 @@ public class ArticleRedisPrefix extends BaseRedisPrefix {
      */
     public static final ArticleRedisPrefix STRATEGIES_FAVOR_SET = new ArticleRedisPrefix("strategies:favor");
 
+    /**
+     * 攻略置顶用户集合
+     */
+    public static final ArticleRedisPrefix STRATEGIES_THUMB_SET = new ArticleRedisPrefix("strategies:thumb:set");
+
     protected ArticleRedisPrefix(String prefix) {
         super(prefix);
     }
+
 }
