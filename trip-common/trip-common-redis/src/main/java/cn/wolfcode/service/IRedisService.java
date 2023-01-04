@@ -3,6 +3,7 @@ package cn.wolfcode.service;
 import cn.wolfcode.key.KeyPrefix;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -45,6 +46,8 @@ public interface IRedisService<K extends KeyPrefix, V> {
      * @return 完整的 hash 对象
      */
     Map<Object, V> hgetAll(K prefix, String... suffix);
+
+    Map<Object, V> hgetAll(String key);
 
     /**
      * 判断 SET 集合中是否有该成员
@@ -102,4 +105,12 @@ public interface IRedisService<K extends KeyPrefix, V> {
      * @param suffix 后缀
      */
     void hputAll(K prefix, Map<String, Object> map, String... suffix);
+
+    /**
+     * 通过 redis 的 keys 命令模糊匹配查询对应的 key
+     *
+     * @param pattern 模糊匹配的格式
+     * @return 所有匹配的 key
+     */
+    Set<String> keys(String pattern);
 }

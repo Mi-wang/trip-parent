@@ -32,13 +32,12 @@ public class StrategyStatDataInitListener implements ApplicationListener<Context
 
     public static final Logger log = LoggerFactory.getLogger("ArticleStatDataInitListener");
 
-    private final IStrategyService strategyService;
-    private final IRedisService<KeyPrefix, Object> redisService;
+    @Autowired
+    private IStrategyService strategyService;
+    @Autowired
+    private IRedisService<KeyPrefix, Object> redisService;
 
-    public StrategyStatDataInitListener(IRedisService<KeyPrefix, Object> redisService, IStrategyService strategyService) {
-        this.redisService = redisService;
-        this.strategyService = strategyService;
-    }
+
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {

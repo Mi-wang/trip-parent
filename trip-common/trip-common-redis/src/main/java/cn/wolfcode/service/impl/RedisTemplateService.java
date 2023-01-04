@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -50,6 +51,11 @@ public class RedisTemplateService implements IRedisService<KeyPrefix, Object> {
     }
 
     @Override
+    public Map<Object, Object> hgetAll(String key) {
+        return redisTemplate.opsForHash().entries(key);
+    }
+
+    @Override
     public Boolean isMember(KeyPrefix prefix, Object value, String... suffix) {
         return redisTemplate.opsForSet().isMember(prefix.join(suffix), value);
     }
@@ -77,5 +83,10 @@ public class RedisTemplateService implements IRedisService<KeyPrefix, Object> {
     @Override
     public void hputAll(KeyPrefix prefix, Map<String, Object> map, String... suffix) {
         redisTemplate.opsForHash().putAll(prefix.join(suffix), map);
+    }
+
+    @Override
+    public Set<String> keys(String pattern) {
+        return redisTemplate.keys(pattern);
     }
 }
