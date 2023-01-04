@@ -1,5 +1,7 @@
 package cn.wolfcode.service.impl;
 
+import cn.wolfcode.ArticleStatKeyChangeHandler;
+import cn.wolfcode.anno.KeyChange;
 import cn.wolfcode.domain.*;
 import cn.wolfcode.key.KeyPrefix;
 import cn.wolfcode.mapper.StrategyContentMapper;
@@ -147,6 +149,7 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
                 .last("limit 3"));
     }
 
+    @KeyChange(key = "'strategies:stat:'+#sid", handler = ArticleStatKeyChangeHandler.class)
     @Override
     public ArticleStatVo veiwnumIncr(Long sid) {
         // 先执行阅读数 +1 操作

@@ -89,4 +89,9 @@ public class RedisTemplateService implements IRedisService<KeyPrefix, Object> {
     public Set<String> keys(String pattern) {
         return redisTemplate.keys(pattern);
     }
+
+    @Override
+    public Double zincrBy(KeyPrefix prefix, Object value, double increment, String... suffix) {
+        return redisTemplate.opsForZSet().incrementScore(prefix.join(suffix), value, increment);
+    }
 }

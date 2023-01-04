@@ -113,4 +113,14 @@ public interface IRedisService<K extends KeyPrefix, V> {
      * @return 所有匹配的 key
      */
     Set<String> keys(String pattern);
+
+    /**
+     * 为 zset 的指定 value 增加 increment 的分数
+     *
+     * @param prefix    前缀
+     * @param value     要加分数的成员
+     * @param increment 要增加的分数
+     * @param suffix    后缀
+     */
+    Double zincrBy(K prefix, V value, double increment, String... suffix);
 }
