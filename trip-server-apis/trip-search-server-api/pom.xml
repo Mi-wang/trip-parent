@@ -11,6 +11,15 @@
 
     <artifactId>trip-search-server-api</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>cn.wolfcode</groupId>
+            <artifactId>trip-user-server-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.wolfcode</groupId>
+            <artifactId>trip-travel-server-api</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
