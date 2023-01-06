@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author wby
  * @version 1.0
@@ -35,6 +37,18 @@ public class BannerController {
     public AjaxResult<?> save(Banner banner) {
         bannerService.save(banner);
         return AjaxResult.success();
+    }
+
+    @GetMapping("/strategy")
+    public AjaxResult<?> strategyList() {
+        List<Banner> banners = bannerService.listByType(Banner.TYPE_STRATEGY, 5);
+        return AjaxResult.success(banners);
+    }
+
+    @GetMapping("/travel")
+    public AjaxResult<?> travelList() {
+        List<Banner> banners = bannerService.listByType(Banner.TYPE_TRAVEL, 5);
+        return AjaxResult.success(banners);
     }
 
     @PostMapping("/update")

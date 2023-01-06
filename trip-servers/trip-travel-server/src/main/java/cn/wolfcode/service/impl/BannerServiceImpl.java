@@ -6,10 +6,13 @@ import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.service.IBannerService;
 import cn.wolfcode.utils.OSSUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
  * @author wby
@@ -31,6 +34,20 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
 
         // 分页方法
         return super.page(new Page<>(qo.getCurrentPage(), qo.getPageSize()), wrapper);
+    }
+
+    @Override
+    public List<Banner> listByType(int type, int num) {
+        // 基于类型 + 状态进行搜索
+        // 基于 seq 进行排序
+        // 最终只查前 5 条
+        LambdaQueryWrapper<Banner> wrapper = Wrappers.<Banner>lambdaQuery()
+                .eq(Banner::getType, type)
+                .eq(Banner::getState, Banner.STATE_NORMAL)
+                .orderByAsc(Banner::getSeq)
+                .last("limit " + num);
+
+        return list(wrapper);
     }
 
     @Override
