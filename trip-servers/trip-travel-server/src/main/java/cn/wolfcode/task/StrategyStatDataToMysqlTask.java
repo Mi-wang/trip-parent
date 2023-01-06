@@ -50,6 +50,8 @@ public class StrategyStatDataToMysqlTask {
             Strategy strategy = new Strategy();
             try {
                 // 从 key 中获取到攻略 id
+                strategy.setIsabroad(null);
+                strategy.setState(null);
                 Long id = this.getIdByKey(key);
                 // 将 map 中的数据拷贝到目标攻略中
                 BeanUtils.copyProperties(strategy, map);

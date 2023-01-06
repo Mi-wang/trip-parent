@@ -22,11 +22,17 @@ public class TravelController {
     private ITravelService travelService;
 
 
+    @GetMapping("/list")
+    public AjaxResult<?> list() {
+        return AjaxResult.success(travelService.list());
+    }
+
     @GetMapping("/query")
     public AjaxResult<?> query(TravelQuery qo) {
         Page<Travel> page = travelService.queryPage(qo);
         return AjaxResult.success(page);
     }
+
     @GetMapping("/content")
     public AjaxResult<?> content(Long id) {
         return AjaxResult.success(travelService.getContent(id));

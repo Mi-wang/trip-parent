@@ -76,6 +76,7 @@ public class StrategyController {
         }
         return strategyService.favornumIncr(sid, user.getId());
     }
+
     @PostMapping("/thumbnumIncr")
     public AjaxResult<ArticleStatVo> thumbnumIncr(Long sid, HttpServletRequest req) {
         UserInfo user = userTokenService.getLoginUser(req);
@@ -84,6 +85,7 @@ public class StrategyController {
         }
         return strategyService.thumbnumIncr(sid, user.getId());
     }
+
     @PostMapping("/save")
     public AjaxResult<?> save(Strategy Strategy) {
         strategyService.save(Strategy);
@@ -127,6 +129,11 @@ public class StrategyController {
             strategyService.removeById(id);
         }
         return AjaxResult.success();
+    }
+
+    @GetMapping("/list")
+    public AjaxResult<?> list() {
+        return AjaxResult.success(strategyService.list());
     }
 
 }

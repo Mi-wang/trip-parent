@@ -50,11 +50,15 @@ public class OSSUtils {
         try {
             String filename = toUUIDFileName(path, getBase64ImgExt(base64Img));
 
+            // 去除前缀，保留 base64 部分编码
+            base64Img = base64Img.replaceAll("data:image/.*;base64,", "");
+            // base64 解码
             // 对图片解码
             byte[] decode = Base64.getDecoder().decode(base64Img);
 
             OSS ossClient = SpringUtils.getBean("ossClient", OSS.class);
             OSSProperties properties = SpringUtils.getBean(OSSProperties.class);
+            // 将解码后的数据包装为二进制流对象，并上传到阿里云
             ossClient.putObject(properties.getBucketName(), filename, new ByteArrayInputStream(decode));
 
             return getFullUrl(properties, filename);
