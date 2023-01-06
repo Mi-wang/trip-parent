@@ -15,7 +15,10 @@ function emoji(str) {
         return str;
     }
     for(var i = 0; i < matchArr.length; i++){
-        str = str.replace(matchArr[i], '<img src="'+EMOJI_MAP[matchArr[i]]+'"style="width: width:28px;"/>')
+        // xxxx(xxxxx)
+        if (EMOJI_MAP[matchArr[i]]) {
+            str = str.replace(matchArr[i], '<img src="' + EMOJI_MAP[matchArr[i]] + '"style="width: width:28px;"/>')
+        }
     }
     return str;
 }
@@ -106,7 +109,7 @@ var vue = new Vue({
             $("#commentTpye").val(0);
             $("#refCommentId").val("");
 
-            ajaxPost("comment","/strategies/travels/save",param, function (data) {
+            ajaxPost("comment","/travels/comments/save",param, function (data) {
                 $("#commentContent").val("");
                 $("#commentContent").attr("placeholder","");
 
@@ -117,7 +120,7 @@ var vue = new Vue({
         queryComments:function (travelId) {
             travelId = travelId || getParams().id;
             //游记评论不分页
-            ajaxGet("comment","/strategies/travels/query",{travelId:travelId}, function (data) {
+            ajaxGet("comment","/travels/comments/query",{travelId:travelId}, function (data) {
                 vue.comments = data.data;
             })
         },

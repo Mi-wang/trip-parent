@@ -18,9 +18,9 @@ var vue = new Vue({
         queryRank:function (type){
             //攻略排行--热门攻略  List<StrategyRank> list;
             ajaxGet("article","/strategies/ranks", {type:type}, function (data) {
-                if(type === 1){
+                if(type == 1){
                     vue.abroadRank = data.data;
-                }else if(type === 2){
+                }else if(type == 2){
                     vue.chinaRank = data.data;
                 }else {
                     vue.hotRank = data.data;
@@ -29,17 +29,17 @@ var vue = new Vue({
         },
         //主题推荐
         queryThemeCds:function (){
-            ajaxGet("article","/strategies/themeCds", {}, function (data) {
-                vue.themeCds = data.data;
-            })
+            // ajaxGet("article","/strategies/themeCds", {}, function (data) {
+            //     vue.themeCds = data.data;
+            // })
         },
 
         //条件列表
         queryCondition:function (type){
             ajaxGet("article","/strategies/conditions", {type:type}, function (data) {
-                if(type === 1){
+                if(type == 1){
                     vue.abroadCondition = data.data;
-                }else if(type === 2){
+                }else if(type == 2){
                     vue.chinaCondition = data.data;
                 }else {
                     vue.themeCondition = data.data;

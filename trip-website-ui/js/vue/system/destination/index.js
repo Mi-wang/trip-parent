@@ -1,4 +1,4 @@
-let vue = new Vue({
+var vue = new Vue({
     el:"#app",
     data:{
         regions:[],  //热门排序的区域集合
@@ -15,7 +15,7 @@ let vue = new Vue({
         },
         //区域切换
         regionChange:function (event, rid) {
-            let _this =$(event.currentTarget);
+            var _this =$(event.currentTarget);
             if(!rid){
                 return;
             }
@@ -26,13 +26,13 @@ let vue = new Vue({
         },
         queryRegion:function (rid) {
             ajaxGet("article","/regions/destination",{rid:rid}, function (data) {
-                let list = data.data;
+                var list = data.data;
                 vue.regionId=rid;
-                let destListLeft = [];  //左边
-                let destListRight = []; //右边
+                var destListLeft = [];  //左边
+                var destListRight = []; //右边
                 //将list集合分成左右2边, 进行遍历显示
-                for(let i = 0; i < list.length; i++){
-                    if(i % 2 === 0){
+                for(var i = 0; i < list.length; i++){
+                    if(i % 2 == 0){
                         destListLeft.push(list[i])
                     }else{
                         destListRight.push(list[i])
