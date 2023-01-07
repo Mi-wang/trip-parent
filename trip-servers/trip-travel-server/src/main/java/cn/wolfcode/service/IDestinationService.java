@@ -26,4 +26,12 @@ public interface IDestinationService extends IService<Destination> {
      * 基于热门 区域查询目的地信息
      */
     List<Destination> queryByRegionId(Long rid);
+
+    /**
+     * 基于名称查询目的地对象
+     *
+     * @param name 要查询的名称
+     * @return 查询到的目的地
+     */
+    Destination findByName(String name);
 }

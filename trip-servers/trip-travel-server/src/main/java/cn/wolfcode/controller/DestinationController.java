@@ -51,5 +51,11 @@ public class DestinationController {
         List<StrategyCatalog> list = strategyCatalogService.queryCatalogsByDestId(destId);
         return R.ok(list);
     }
+
+    @GetMapping("/getByName")
+    public R<Destination> getByName(String name) {
+        Destination dest = destinationService.findByName(name);
+        return R.ok(dest);
+    }
 }
 

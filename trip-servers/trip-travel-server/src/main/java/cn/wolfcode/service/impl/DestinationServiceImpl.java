@@ -105,6 +105,12 @@ public class DestinationServiceImpl extends ServiceImpl<DestinationMapper, Desti
         return list;
     }
 
+    @Override
+    public Destination findByName(String name) {
+        return super.getOne(new LambdaQueryWrapper<Destination>()
+                .eq(Destination::getName, name));
+    }
+
     private List<Destination> listByParentId(Long parentId, int limit) {
         // SELECT * FROM destination WHERE parent_id = #{parentId}
         return list(Wrappers.<Destination>lambdaQuery()
