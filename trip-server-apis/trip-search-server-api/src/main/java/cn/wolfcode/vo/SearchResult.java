@@ -22,4 +22,5 @@ public class SearchResult {
     private List<Strategy> strategies = new ArrayList<>();
     private List<Travel> travels = new ArrayList<>();
     private List<UserInfo> users = new ArrayList<>();
+
 }
