@@ -107,38 +107,25 @@ public class R<T> extends HashMap<String, Object> {
         return (String) super.get(MSG_NAME);
     }
 
-    public T data() {
+    public T getData() {
         return (T) super.get(DATA_NAME);
     }
 
-    public T data(Class<T> clazz) {
+    public T getData(Class<T> clazz) {
         // 判断是否有异常, 如果有异常就不需要获取数据, 直接抛出异常
         AssertUtils.isFalse(this.hasError(), this.getMsg());
 
-        ObjectMapper mapper = new ObjectMapper();
+        T t = null;
         try {
             Object ret = super.get(DATA_NAME);
             if (ret == null) {
                 return null;
             }
-            return mapper.convertValue(ret, clazz);
+            t = clazz.newInstance();
+            BeanUtils.copyProperties(t, ret);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
-    }
-
-    public <T> List<T> listData(List<?> list, Class<T> clazz) {
-        // 判断是否有异常, 如果有异常就不需要获取数据, 直接抛出异常
-        AssertUtils.isFalse(this.hasError(), this.getMsg());
-
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return list.stream().map(m -> mapper.convertValue(m, clazz)).collect(Collectors.toList());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return Collections.emptyList();
+        return t;
     }
 }
