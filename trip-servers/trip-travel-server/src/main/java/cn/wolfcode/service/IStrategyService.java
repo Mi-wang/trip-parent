@@ -30,4 +30,6 @@ public interface IStrategyService extends IService<Strategy> {
     R<ArticleStatVo> favornumIncr(Long strategyId, Long userId);
 
     R<ArticleStatVo> thumbnumIncr(Long strategyId, Long userId);
+
+    List<Strategy> findByDestId(Long destId);
 }

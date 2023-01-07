@@ -132,4 +132,8 @@ public class StrategyController {
         return R.ok(strategyService.list());
     }
 
+    @GetMapping("/findByDestId")
+    R<List<Strategy>> findByDestId(@RequestParam Long destId) {
+        return R.ok(strategyService.findByDestId(destId));
+    }
 }

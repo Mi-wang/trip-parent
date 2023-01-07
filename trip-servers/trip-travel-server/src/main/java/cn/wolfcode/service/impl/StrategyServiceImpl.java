@@ -243,5 +243,15 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
         result.put("data", map);
         return result;
     }
+
+    @Override
+    public List<Strategy> findByDestId(Long destId) {
+        LambdaQueryWrapper<Strategy> wrapper = new LambdaQueryWrapper<Strategy>()
+                .eq(Strategy::getDestId, destId)
+                .eq(Strategy::getState, Strategy.STATE_PUBLISH)
+                .orderByDesc(Strategy::getViewnum);
+
+        return list(wrapper);
+    }
 }
 
