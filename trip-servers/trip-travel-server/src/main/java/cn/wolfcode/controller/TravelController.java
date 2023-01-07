@@ -23,47 +23,47 @@ public class TravelController {
 
     @GetMapping("/list")
     public R<?> list() {
-        return R.success(travelService.list());
+        return R.ok(travelService.list());
     }
 
     @GetMapping("/query")
     public R<?> query(TravelQuery qo) {
         Page<Travel> page = travelService.queryPage(qo);
-        return R.success(page);
+        return R.ok(page);
     }
 
     @GetMapping("/content")
     public R<?> content(Long id) {
-        return R.success(travelService.getContent(id));
+        return R.ok(travelService.getContent(id));
     }
 
     @GetMapping("/viewnnumTop3")
     public R<?> viewnnumTop3() {
-        return R.success(travelService.viewnnumTop3());
+        return R.ok(travelService.viewnnumTop3());
     }
 
     @PostMapping("/audit")
     public R<?> audit(Long id, Integer state) {
         travelService.audit(id, state);
-        return R.success();
+        return R.ok();
     }
 
 
     @GetMapping("/detail")
     public R<?> detail(Long id) {
-        return R.success(travelService.getById(id));
+        return R.ok(travelService.getById(id));
     }
 
     @PostMapping("/save")
     public R<?> save(Travel travel) {
         travelService.save(travel);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/update")
     public R<?> update(Travel travel) {
         travelService.updateById(travel);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/delete/{id}")
@@ -71,7 +71,7 @@ public class TravelController {
         if (id != null) {
             travelService.removeById(id);
         }
-        return R.success();
+        return R.ok();
     }
 
 }

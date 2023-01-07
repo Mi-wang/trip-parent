@@ -25,6 +25,6 @@ public class StrategyConditionsController extends BaseController {
     @GetMapping
     public R<?> index(int type) {
         List<StrategyCondition> list =  strategyConditionService.queryByType(type);
-        return R.success(list);
+        return R.ok(list);
     }
 }

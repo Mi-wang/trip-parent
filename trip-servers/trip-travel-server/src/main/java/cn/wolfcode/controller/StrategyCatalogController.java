@@ -26,30 +26,30 @@ public class StrategyCatalogController {
     @GetMapping("/query")
     public R<?> query(BaseQuery qo) {
         Page<StrategyCatalog> page = strategyCatalogService.queryPage(qo);
-        return R.success(page);
+        return R.ok(page);
     }
 
     @GetMapping("/groups")
     public R<?> catalogGroup() {
         List<CatalogGroupVO> catalogGroupVOList = strategyCatalogService.groupList();
-        return R.success(catalogGroupVOList);
+        return R.ok(catalogGroupVOList);
     }
 
     @GetMapping("/detail")
     public R<?> detail(Long id) {
-        return R.success(strategyCatalogService.getById(id));
+        return R.ok(strategyCatalogService.getById(id));
     }
 
     @PostMapping("/save")
     public R<?> save(StrategyCatalog StrategyCatalog) {
         strategyCatalogService.save(StrategyCatalog);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/update")
     public R<?> update(StrategyCatalog StrategyCatalog) {
         strategyCatalogService.updateById(StrategyCatalog);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/delete/{id}")
@@ -57,7 +57,7 @@ public class StrategyCatalogController {
         if (id != null) {
             strategyCatalogService.removeById(id);
         }
-        return R.success();
+        return R.ok();
     }
 
 }

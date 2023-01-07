@@ -30,7 +30,7 @@ public class RegionController {
     @GetMapping("/query")
     public R<?> query(BaseQuery qo) {
         Page<Region> page = regionService.queryPage(qo);
-        return R.success(page);
+        return R.ok(page);
     }
 
     @GetMapping("/{id}/destination")
@@ -39,24 +39,24 @@ public class RegionController {
         // 获取到区域对象管理的所有目的地 id
         List<Long> destIds = region.parseRefIds();
 
-        return R.success(destinationService.listByIds(destIds));
+        return R.ok(destinationService.listByIds(destIds));
     }
 
     @GetMapping("/detail")
     public R<?> detail(Long id) {
-        return R.success(regionService.getById(id));
+        return R.ok(regionService.getById(id));
     }
 
     @PostMapping("/save")
     public R<?> save(Region region) {
         regionService.save(region);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/update")
     public R<?> update(Region region) {
         regionService.updateById(region);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/delete/{id}")
@@ -64,19 +64,19 @@ public class RegionController {
         if (id != null) {
             regionService.removeById(id);
         }
-        return R.success();
+        return R.ok();
     }
 
     @GetMapping("/destination")
     public R<?> dests(Long rid) {
         List<Destination> list = destinationService.queryByRegionId(rid);
-        return R.success(list);
+        return R.ok(list);
     }
 
     @GetMapping("/hot")
     public R<?> hotList() {
         List<Region> list = regionService.queryHotList();
-        return R.success(list);
+        return R.ok(list);
     }
 }
 

@@ -25,36 +25,36 @@ public class BannerController {
     @GetMapping("/query")
     public R<?> query(BaseQuery qo) {
         Page<Banner> page = bannerService.queryPage(qo);
-        return R.success(page);
+        return R.ok(page);
     }
 
     @GetMapping("/detail")
     public R<?> detail(Long id) {
-        return R.success(bannerService.getById(id));
+        return R.ok(bannerService.getById(id));
     }
 
     @PostMapping("/save")
     public R<?> save(Banner banner) {
         bannerService.save(banner);
-        return R.success();
+        return R.ok();
     }
 
     @GetMapping("/strategy")
     public R<?> strategyList() {
         List<Banner> banners = bannerService.listByType(Banner.TYPE_STRATEGY, 5);
-        return R.success(banners);
+        return R.ok(banners);
     }
 
     @GetMapping("/travel")
     public R<?> travelList() {
         List<Banner> banners = bannerService.listByType(Banner.TYPE_TRAVEL, 5);
-        return R.success(banners);
+        return R.ok(banners);
     }
 
     @PostMapping("/update")
     public R<?> update(Banner banner) {
         bannerService.updateById(banner);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/delete/{id}")
@@ -62,7 +62,7 @@ public class BannerController {
         if (id != null) {
             bannerService.removeById(id);
         }
-        return R.success();
+        return R.ok();
     }
 }
 

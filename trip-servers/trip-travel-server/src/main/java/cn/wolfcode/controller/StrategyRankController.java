@@ -25,6 +25,6 @@ public class StrategyRankController extends BaseController {
     @GetMapping
     public R<?> index(int type) {
         List<StrategyRank> list =  strategyRankService.queryByType(type);
-        return R.success(list);
+        return R.ok(list);
     }
 }

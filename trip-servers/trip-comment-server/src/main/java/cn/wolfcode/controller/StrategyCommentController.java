@@ -26,37 +26,37 @@ public class StrategyCommentController {
     @GetMapping("/query")
     public R<Page<StrategyComment>> query(StrategyCommentQuery query) {
         Page<StrategyComment> page = strategyCommentService.page(query);
-        return R.success(page);
+        return R.ok(page);
     }
 
     @PostMapping("/save")
     public R<?> save(StrategyComment comment, @RequestUser UserInfo userInfo) {
         strategyCommentService.save(comment, userInfo);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/thumb")
     public R<?> thumb(String cid, @RequestUser UserInfo userInfo) {
         // 进行点赞操作, 判断当前用户是否点过赞, 如果已经点过取消点赞
         strategyCommentService.thumb(cid, userInfo.getId());
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/test")
     public R<?> test(@RequestUser UserInfo userInfo) {
         System.out.println("userInfo = " + userInfo);
-        return R.success(userInfo);
+        return R.ok(userInfo);
     }
 
     @PostMapping("/update")
     public R<?> update(StrategyComment comment) {
         strategyCommentService.updateById(comment);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/delete")
     public R<?> delete(String id) {
         strategyCommentService.deleteById(id);
-        return R.success();
+        return R.ok();
     }
 }

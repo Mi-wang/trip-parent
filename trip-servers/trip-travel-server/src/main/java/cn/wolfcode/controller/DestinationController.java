@@ -31,25 +31,25 @@ public class DestinationController {
 
     @GetMapping
     public R<?> list() {
-        return R.success(destinationService.list());
+        return R.ok(destinationService.list());
     }
 
     @GetMapping("/query")
     public R<?> query(DestinationQuery qo) {
         Page<Destination> page = destinationService.queryPage(qo);
-        return R.success(page);
+        return R.ok(page);
     }
 
     @GetMapping("/toasts")
     public R<?> queryToasts(Long destId) {
         List<Destination> list = destinationService.queryToasts(destId);
-        return R.success(list);
+        return R.ok(list);
     }
 
     @GetMapping("/catalogs")
     public R<?> catalogs (Long destId) {
         List<StrategyCatalog> list = strategyCatalogService.queryCatalogsByDestId(destId);
-        return R.success(list);
+        return R.ok(list);
     }
 }
 

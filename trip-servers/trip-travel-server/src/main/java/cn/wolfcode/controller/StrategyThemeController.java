@@ -23,29 +23,29 @@ public class StrategyThemeController {
     @GetMapping("/query")
     public R<?> query(BaseQuery qo) {
         Page<StrategyTheme> page = strategyThemeService.queryPage(qo);
-        return R.success(page);
+        return R.ok(page);
     }
 
     @GetMapping("/list")
     public R<?> list() {
-        return R.success(strategyThemeService.list());
+        return R.ok(strategyThemeService.list());
     }
 
     @GetMapping("/detail")
     public R<?> detail(Long id) {
-        return R.success(strategyThemeService.getById(id));
+        return R.ok(strategyThemeService.getById(id));
     }
 
     @PostMapping("/save")
     public R<?> save(StrategyTheme strategyTheme) {
         strategyThemeService.save(strategyTheme);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/update")
     public R<?> update(StrategyTheme strategyTheme) {
         strategyThemeService.updateById(strategyTheme);
-        return R.success();
+        return R.ok();
     }
 
     @PostMapping("/delete/{id}")
@@ -53,7 +53,7 @@ public class StrategyThemeController {
         if (id != null) {
             strategyThemeService.removeById(id);
         }
-        return R.success();
+        return R.ok();
     }
 
 }

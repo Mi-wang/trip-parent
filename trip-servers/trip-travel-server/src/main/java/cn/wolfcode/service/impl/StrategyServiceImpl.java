@@ -176,7 +176,7 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
 
     @Override
     public R<ArticleStatVo> favornumIncr(Long strategyId, Long userId) {
-        R<ArticleStatVo> ret = R.success();
+        R<ArticleStatVo> ret = R.ok();
 
         // 判断当前用户是否已经收藏文章
         Boolean favor = this.isFavor(strategyId, userId);
@@ -209,7 +209,7 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
     @Override
     public R<ArticleStatVo> thumbnumIncr(Long strategyId, Long userId) {
         // 构建结果对象, 直接设置 result 默认为 false
-        R<ArticleStatVo> result = R.success();
+        R<ArticleStatVo> result = R.ok();
         result.put("result", false);
 
         // 判断用户是否已经置顶

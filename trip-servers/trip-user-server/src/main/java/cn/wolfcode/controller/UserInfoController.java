@@ -29,7 +29,7 @@ public class UserInfoController extends BaseController {
 
     @GetMapping("/{id}")
     public R<UserInfo> getById(@PathVariable Long id) {
-        return R.success(userInfoService.getById(id));
+        return R.ok(userInfoService.getById(id));
     }
 
     @PostMapping("/login")
