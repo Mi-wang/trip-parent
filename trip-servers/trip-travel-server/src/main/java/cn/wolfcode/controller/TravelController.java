@@ -20,16 +20,25 @@ public class TravelController {
     @Autowired
     private ITravelService travelService;
 
+    @GetMapping("/query")
+    public R<?> query(TravelQuery qo) {
+        Page<Travel> page = travelService.queryPage(qo);
+        return R.ok(page);
+    }
 
     @GetMapping("/list")
     public R<?> list() {
         return R.ok(travelService.list());
     }
 
-    @GetMapping("/query")
-    public R<?> query(TravelQuery qo) {
-        Page<Travel> page = travelService.queryPage(qo);
-        return R.ok(page);
+    @GetMapping("/findByDestId")
+    public R<?> findByDestId(Long destId) {
+        return R.ok(travelService.findByDestId(destId));
+    }
+
+    @GetMapping("/detail")
+    public R<?> detail(Long id) {
+        return R.ok(travelService.getById(id));
     }
 
     @GetMapping("/content")
@@ -46,12 +55,6 @@ public class TravelController {
     public R<?> audit(Long id, Integer state) {
         travelService.audit(id, state);
         return R.ok();
-    }
-
-
-    @GetMapping("/detail")
-    public R<?> detail(Long id) {
-        return R.ok(travelService.getById(id));
     }
 
     @PostMapping("/save")
@@ -75,4 +78,3 @@ public class TravelController {
     }
 
 }
-

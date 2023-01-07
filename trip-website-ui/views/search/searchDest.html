@@ -62,14 +62,14 @@
                                             <a href="javascript:;" target="_blank" class="_j_search_link">{{dest.name}}</a>
                                         </h3>
                                         <p class="seg-desc" v-html="dest.info"></p>
-                                        
+
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="heg30"></div>    
+                <div class="heg30"></div>
 
                 <div class="_j_search_section">
                     <div class="att-list">
@@ -82,7 +82,7 @@
                         <ul>
                             <li>
                                 <div class="clearfix">
-                                    <div v-for="s in  result.strategys">
+                                    <div v-for="s in  result.strategies">
                                         <div class="flt1">
                                             <a href="javascript:;" target="_blank" class="_j_search_link">
                                                 <img :src="s.coverUrl" style="width:150px;height:90px;">
@@ -130,7 +130,7 @@
                                 <a href="javascript:;" target="_blank"
                                     class="_j_search_link">{{t.title}}</a>
                                 <span class="seg-info">{{t.createTime|dateFormat}}</span>
-                                <span class="seg-info">{{t.author.nickname}}</span>
+                                <span class="seg-info">{{t.author && t.author.nickname}}</span>
                                 <span class="seg-info">浏览({{t.viewnum}})</span>
                                 <span class="seg-info">回复({{t.replynum}})</span>
                             </p>

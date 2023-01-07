@@ -2,9 +2,14 @@ package cn.wolfcode.vo;
 
 import cn.wolfcode.constants.HttpStatus;
 import cn.wolfcode.exception.Wolf2wException;
+import cn.wolfcode.utils.AssertUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 统一结果响应对象
@@ -22,12 +27,12 @@ public class R<T> extends HashMap<String, Object> {
     public static final Integer DEFAULT_FAILED_CODE = HttpStatus.SERVER_ERROR;
     public static final String DEFAULT_FAILED_MSG = "error";
 
-
     public static final String CODE_NAME = "code";
     public static final String MSG_NAME = "msg";
     public static final String DATA_NAME = "data";
 
-    public R() {}
+    public R() {
+    }
 
     public R(Integer code, String msg, T data) {
         super.put(CODE_NAME, code);
@@ -102,19 +107,38 @@ public class R<T> extends HashMap<String, Object> {
         return (String) super.get(MSG_NAME);
     }
 
-    public Object getData() {
-        return super.get(DATA_NAME);
+    public T data() {
+        return (T) super.get(DATA_NAME);
     }
 
-    public T getData(Class<T> clazz) {
-        T t = null;
+    public T data(Class<T> clazz) {
+        // 判断是否有异常, 如果有异常就不需要获取数据, 直接抛出异常
+        AssertUtils.isFalse(this.hasError(), this.getMsg());
+
+        ObjectMapper mapper = new ObjectMapper();
         try {
             Object ret = super.get(DATA_NAME);
-            t = clazz.newInstance();
-            BeanUtils.copyProperties(t, ret);
+            if (ret == null) {
+                return null;
+            }
+            return mapper.convertValue(ret, clazz);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return t;
+        return null;
+    }
+
+    public <T> List<T> listData(List<?> list, Class<T> clazz) {
+        // 判断是否有异常, 如果有异常就不需要获取数据, 直接抛出异常
+        AssertUtils.isFalse(this.hasError(), this.getMsg());
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            return list.stream().map(m -> mapper.convertValue(m, clazz)).collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return Collections.emptyList();
     }
 }

@@ -1,12 +1,10 @@
-package cn.wolfcode.domain;
+package cn.wolfcode.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import cn.wolfcode.domain.TravelContent;
+import cn.wolfcode.domain.UserInfo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,28 +12,21 @@ import java.util.Date;
 /**
  * @author wby
  * @version 1.0
- * @date 2022-12-27 027 11:33
+ * @date 2023-01-07 007 19:25
  */
 @Setter
 @Getter
-@TableName("travel")
-public class Travel extends BaseDomain {
-    public static final int STATE_NORMAL = 0;  //草稿
-    public static final int STATE_WAITING = 1;  //待发布(待审核)
-    public static final int STATE_RELEASE = 2;  //审核通过
-    public static final int STATE_REJECT = 3;  //拒绝
-    public static final int ISPUBLIC_NO = 0;
-    public static final int ISPUBLIC_YES = 1;
+public class TravelDTO implements Serializable {
 
+    private Long id;
     private Long destId;  //目的地
     private String destName;  //目的地
     private Long authorId;  //作者id
-    @TableField(exist = false)
     private UserInfo author; // 作者信息
     private String title;  //标题
     private String summary;//概要
     private String coverUrl; //封面
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date travelTime; //旅游时间
     private Integer avgConsume; //人均消费
     private Integer day;  //旅游天数
@@ -43,13 +34,12 @@ public class Travel extends BaseDomain {
     private Date createTime; //创建时间
     private Date releaseTime; //发布时间
     private Date lastUpdateTime; //最新更新时间内
-    private Integer ispublic = ISPUBLIC_NO; //是否发布
+    private Integer ispublic; //是否发布
     private Integer viewnum;  //点击/阅读数
     private Integer replynum; //回复数
     private Integer favornum;//收藏数
     private Integer sharenum;//分享数
     private Integer thumbsupnum;//点赞数
-    private Integer state = STATE_NORMAL;//游记状态
-    @TableField(exist = false)
+    private Integer state;//游记状态
     private TravelContent content;  //游记内容
 }

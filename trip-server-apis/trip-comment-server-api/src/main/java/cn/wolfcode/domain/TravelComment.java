@@ -1,5 +1,6 @@
 package cn.wolfcode.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -31,6 +32,7 @@ public class TravelComment implements Serializable {
     private int level;
     private String headImgUrl;   // 用户头像
     private int type = TRAVLE_COMMENT_TYPE_COMMENT; //评论类别
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime; //创建时间
     private String content;  //评论内容
     private TravelComment refComment;  //关联的评论

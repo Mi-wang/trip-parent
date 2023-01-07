@@ -38,4 +38,9 @@ public class AssertUtils {
             throw new ServiceException(msg);
         }
     }
+    public static void isFalse(boolean ret, String msg) {
+        if (ret) {
+            throw new ServiceException(msg);
+        }
+    }
 }

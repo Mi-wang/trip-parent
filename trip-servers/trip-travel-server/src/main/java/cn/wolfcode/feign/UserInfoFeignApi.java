@@ -1,4 +1,4 @@
-package cn.wolfcode.fegin;
+package cn.wolfcode.feign;
 
 import cn.wolfcode.domain.UserInfo;
 import cn.wolfcode.vo.R;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @FeignClient("trip-user-server")
 @RequestMapping("/users")
-public interface UserInfoFeginApi {
+public interface UserInfoFeignApi {
 
     @GetMapping("/{id}")
     R<UserInfo> getById(@PathVariable Long id);

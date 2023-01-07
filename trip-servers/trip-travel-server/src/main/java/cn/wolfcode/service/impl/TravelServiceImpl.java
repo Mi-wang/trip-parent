@@ -3,7 +3,7 @@ package cn.wolfcode.service.impl;
 import cn.wolfcode.domain.Travel;
 import cn.wolfcode.domain.TravelContent;
 import cn.wolfcode.domain.UserInfo;
-import cn.wolfcode.fegin.UserInfoFeginApi;
+import cn.wolfcode.feign.UserInfoFeignApi;
 import cn.wolfcode.mapper.TravelContentMapper;
 import cn.wolfcode.mapper.TravelMapper;
 import cn.wolfcode.query.TravelQuery;
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
 
@@ -31,9 +32,8 @@ import java.util.List;
 public class TravelServiceImpl extends ServiceImpl<TravelMapper, Travel> implements ITravelService {
 
     @Autowired
-    private UserInfoFeginApi userInfoFeginApi;
-
-    @Autowired
+    private UserInfoFeignApi userInfoFeignApi;
+    @Resource
     private TravelContentMapper travelContentMapper;
 
     @Override
@@ -65,18 +65,35 @@ public class TravelServiceImpl extends ServiceImpl<TravelMapper, Travel> impleme
         // 排序列
         wrapper.orderByDesc(qo.getOrderBy());
 
-        wrapper.orderByDesc(qo.getOrderBy());
-        // 分页查询方法
-        Page<Travel> page = page(new Page<>(qo.getCurrentPage(), qo.getPageSize()), wrapper);
+        // 分页方法
+        Page<Travel> page = super.page(new Page<>(qo.getCurrentPage(), qo.getPageSize()), wrapper);
+        // 查询用户信息
         List<Travel> records = page.getRecords();
         for (Travel travel : records) {
-            R<UserInfo> result = userInfoFeginApi.getById(travel.getAuthorId());
+            // 基于用户 id 查询用户对象
+            R<UserInfo> result = userInfoFeignApi.getById(travel.getAuthorId());
             if (!result.hasError()) {
-                UserInfo userInfo = result.getData(UserInfo.class);
+                UserInfo userInfo = result.data(UserInfo.class);
                 travel.setAuthor(userInfo);
             }
         }
         return page;
+    }
+
+    @Override
+    public Travel getById(Serializable id) {
+        Travel travel = super.getById(id);
+        // 查询游记内容
+        travel.setContent(travelContentMapper.selectById(id));
+
+        // 远程调用查询作者信息
+        R<UserInfo> result = userInfoFeignApi.getById(travel.getAuthorId());
+        if (!result.hasError()) {
+            // 查询作者信息
+            travel.setAuthor(result.data(UserInfo.class));
+        }
+
+        return travel;
     }
 
     @Override
@@ -86,6 +103,8 @@ public class TravelServiceImpl extends ServiceImpl<TravelMapper, Travel> impleme
 
     @Override
     public void audit(Long id, Integer state) {
+        // 1. 基于 id 获取游记对象
+        // 2. 判断前置状态是否为待审核, 只有待审核才进行审核
         int ret = getBaseMapper().updateStatus(id, state, Travel.STATE_WAITING);
         AssertUtils.isTrue(ret > 0, "状态修改失败");
     }
@@ -96,16 +115,11 @@ public class TravelServiceImpl extends ServiceImpl<TravelMapper, Travel> impleme
     }
 
     @Override
-    public Travel getById(Serializable id) {
-        Travel travel = super.getById(id);
-        travel.setContent(travelContentMapper.selectById(travel.getAuthorId()));
+    public List<Travel> findByDestId(Long destId) {
+        LambdaQueryWrapper<Travel> wrapper = new LambdaQueryWrapper<Travel>()
+                .eq(Travel::getDestId, destId)
+                .orderByDesc(Travel::getViewnum);
 
-        // 远程调用查询作者信息
-        R<UserInfo> result = userInfoFeginApi.getById(travel.getAuthorId());
-        if (!result.hasError()) {
-            // 查询作者信息
-            travel.setAuthor(result.getData(UserInfo.class));
-        }
-        return travel;
+        return list(wrapper);
     }
 }

@@ -21,7 +21,12 @@ public interface ITravelService extends IService<Travel> {
 
     TravelContent getContent(Long id);
 
+    /**
+     * 审核游记
+     */
     void audit(Long id, Integer state);
 
     List<Travel> viewnnumTop3();
+
+    List<Travel> findByDestId(Long destId);
 }

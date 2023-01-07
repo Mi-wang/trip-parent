@@ -38,27 +38,27 @@ public class SearchController extends BaseController {
 
     private R<?> searchForUser(SearchQuery qo) {
         log.info("[搜索服务] 用户信息搜索: {}", qo);
-        return R.success();
+        return R.ok();
     }
 
     private R<?> searchForTravel(SearchQuery qo) {
         log.info("[搜索服务] 游记信息搜索: {}", qo);
-        return R.success();
+        return R.ok();
     }
 
     private R<?> searchForStrategy(SearchQuery qo) {
         log.info("[搜索服务] 攻略信息搜索: {}", qo);
-        return R.success();
+        return R.ok();
     }
 
     private R<?> searchForDest(SearchQuery qo) {
         log.info("[搜索服务] 目的地信息搜索: {}", qo);
-        return R.success();
+        return R.ok();
     }
 
     private R<?> searchForAll(SearchQuery qo) {
         log.info("[搜索服务] 全文搜索: {}", qo);
-        return R.success();
+        return R.ok();
     }
 }
 

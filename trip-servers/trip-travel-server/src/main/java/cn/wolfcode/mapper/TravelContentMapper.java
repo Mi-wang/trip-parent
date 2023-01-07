@@ -10,6 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @version 1.0
  * @date 2022/12/17 11:39
  */
-@Mapper
-public interface TravelContentMapper extends BaseMapper<TravelContent>{
+public interface TravelContentMapper extends BaseMapper<TravelContent> {
 }

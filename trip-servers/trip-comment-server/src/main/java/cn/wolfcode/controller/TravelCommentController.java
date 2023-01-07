@@ -4,6 +4,7 @@ package cn.wolfcode.controller;
 import cn.wolfcode.anno.RequestUser;
 import cn.wolfcode.domain.TravelComment;
 import cn.wolfcode.domain.UserInfo;
+import cn.wolfcode.query.TravelCommentQuery;
 import cn.wolfcode.service.ITravelCommentService;
 import cn.wolfcode.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,29 +18,28 @@ import java.util.List;
 /**
  * @author 20463
  */
+@RequestMapping("/travels/comments")
 @RestController
-@RequestMapping("/strategies/travels")
 public class TravelCommentController {
+
     @Autowired
     private ITravelCommentService travelCommentService;
 
     @GetMapping("/query")
-    public R<List<TravelComment>> query() {
-        List<TravelComment> page = travelCommentService.page();
-        return R.success(page);
+    public R<List<TravelComment>> query(TravelCommentQuery query) {
+        List<TravelComment> page = travelCommentService.page(query);
+        return R.ok(page);
     }
 
     @PostMapping("/save")
-    public R<?> save(TravelComment travelComment, @RequestUser UserInfo userInfo) {
-        travelCommentService.save(travelComment, userInfo);
-        return R.success();
+    public R<?> save(TravelComment comment, @RequestUser UserInfo userInfo) {
+        travelCommentService.save(comment, userInfo);
+        return R.ok();
     }
-
 
     @PostMapping("/delete")
     public R<?> delete(String id) {
         travelCommentService.deleteById(id);
-        return R.success();
+        return R.ok();
     }
-
 }
