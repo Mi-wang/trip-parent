@@ -5,7 +5,7 @@ import cn.wolfcode.domain.StrategyComment;
 import cn.wolfcode.domain.UserInfo;
 import cn.wolfcode.query.StrategyCommentQuery;
 import cn.wolfcode.service.IStrategyCommentService;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,39 +24,39 @@ public class StrategyCommentController {
     private IStrategyCommentService strategyCommentService;
 
     @GetMapping("/query")
-    public AjaxResult<Page<StrategyComment>> query(StrategyCommentQuery query) {
+    public R<Page<StrategyComment>> query(StrategyCommentQuery query) {
         Page<StrategyComment> page = strategyCommentService.page(query);
-        return AjaxResult.success(page);
+        return R.success(page);
     }
 
     @PostMapping("/save")
-    public AjaxResult<?> save(StrategyComment comment, @RequestUser UserInfo userInfo) {
+    public R<?> save(StrategyComment comment, @RequestUser UserInfo userInfo) {
         strategyCommentService.save(comment, userInfo);
-        return AjaxResult.success();
+        return R.success();
     }
 
     @PostMapping("/thumb")
-    public AjaxResult<?> thumb(String cid, @RequestUser UserInfo userInfo) {
+    public R<?> thumb(String cid, @RequestUser UserInfo userInfo) {
         // 进行点赞操作, 判断当前用户是否点过赞, 如果已经点过取消点赞
         strategyCommentService.thumb(cid, userInfo.getId());
-        return AjaxResult.success();
+        return R.success();
     }
 
     @PostMapping("/test")
-    public AjaxResult<?> test(@RequestUser UserInfo userInfo) {
+    public R<?> test(@RequestUser UserInfo userInfo) {
         System.out.println("userInfo = " + userInfo);
-        return AjaxResult.success(userInfo);
+        return R.success(userInfo);
     }
 
     @PostMapping("/update")
-    public AjaxResult<?> update(StrategyComment comment) {
+    public R<?> update(StrategyComment comment) {
         strategyCommentService.updateById(comment);
-        return AjaxResult.success();
+        return R.success();
     }
 
     @PostMapping("/delete")
-    public AjaxResult<?> delete(String id) {
+    public R<?> delete(String id) {
         strategyCommentService.deleteById(id);
-        return AjaxResult.success();
+        return R.success();
     }
 }

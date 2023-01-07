@@ -10,7 +10,7 @@ import cn.wolfcode.query.StrategyQuery;
 import cn.wolfcode.redis.key.ArticleRedisPrefix;
 import cn.wolfcode.service.*;
 import cn.wolfcode.utils.OSSUtils;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import cn.wolfcode.vo.ArticleStatVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -175,8 +175,8 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
     }
 
     @Override
-    public AjaxResult<ArticleStatVo> favornumIncr(Long strategyId, Long userId) {
-        AjaxResult<ArticleStatVo> ret = AjaxResult.success();
+    public R<ArticleStatVo> favornumIncr(Long strategyId, Long userId) {
+        R<ArticleStatVo> ret = R.success();
 
         // 判断当前用户是否已经收藏文章
         Boolean favor = this.isFavor(strategyId, userId);
@@ -207,9 +207,9 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
     }
 
     @Override
-    public AjaxResult<ArticleStatVo> thumbnumIncr(Long strategyId, Long userId) {
+    public R<ArticleStatVo> thumbnumIncr(Long strategyId, Long userId) {
         // 构建结果对象, 直接设置 result 默认为 false
-        AjaxResult<ArticleStatVo> result = AjaxResult.success();
+        R<ArticleStatVo> result = R.success();
         result.put("result", false);
 
         // 判断用户是否已经置顶

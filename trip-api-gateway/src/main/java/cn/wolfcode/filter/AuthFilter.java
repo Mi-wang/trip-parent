@@ -3,7 +3,7 @@ package cn.wolfcode.filter;
 import cn.wolfcode.config.AuthProperties;
 import cn.wolfcode.domain.UserInfo;
 import cn.wolfcode.service.GatewayTokenService;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -78,7 +78,7 @@ public class AuthFilter implements GlobalFilter {
         resp.getHeaders().add("Content-Type", "application/json;charset=utf-8");
 
         // 最终响应的对象
-        AjaxResult<?> result = AjaxResult.failed(401, msg);
+        R<?> result = R.err(401, msg);
         String json = "";
         try {
             // fastJSON / Jackson => Spring 默认支持的

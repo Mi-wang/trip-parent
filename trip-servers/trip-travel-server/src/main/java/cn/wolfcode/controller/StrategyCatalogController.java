@@ -1,11 +1,9 @@
 package cn.wolfcode.controller;
 
-import cn.wolfcode.domain.Destination;
 import cn.wolfcode.domain.StrategyCatalog;
 import cn.wolfcode.query.BaseQuery;
-import cn.wolfcode.service.IDestinationService;
 import cn.wolfcode.service.IStrategyCatalogService;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import cn.wolfcode.vo.CatalogGroupVO;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,40 +24,40 @@ public class StrategyCatalogController {
     private IStrategyCatalogService strategyCatalogService;
 
     @GetMapping("/query")
-    public AjaxResult<?> query(BaseQuery qo) {
+    public R<?> query(BaseQuery qo) {
         Page<StrategyCatalog> page = strategyCatalogService.queryPage(qo);
-        return AjaxResult.success(page);
+        return R.success(page);
     }
 
     @GetMapping("/groups")
-    public AjaxResult<?> catalogGroup() {
+    public R<?> catalogGroup() {
         List<CatalogGroupVO> catalogGroupVOList = strategyCatalogService.groupList();
-        return AjaxResult.success(catalogGroupVOList);
+        return R.success(catalogGroupVOList);
     }
 
     @GetMapping("/detail")
-    public AjaxResult<?> detail(Long id) {
-        return AjaxResult.success(strategyCatalogService.getById(id));
+    public R<?> detail(Long id) {
+        return R.success(strategyCatalogService.getById(id));
     }
 
     @PostMapping("/save")
-    public AjaxResult<?> save(StrategyCatalog StrategyCatalog) {
+    public R<?> save(StrategyCatalog StrategyCatalog) {
         strategyCatalogService.save(StrategyCatalog);
-        return AjaxResult.success();
+        return R.success();
     }
 
     @PostMapping("/update")
-    public AjaxResult<?> update(StrategyCatalog StrategyCatalog) {
+    public R<?> update(StrategyCatalog StrategyCatalog) {
         strategyCatalogService.updateById(StrategyCatalog);
-        return AjaxResult.success();
+        return R.success();
     }
 
     @PostMapping("/delete/{id}")
-    public AjaxResult<?> delete(@PathVariable Long id) {
+    public R<?> delete(@PathVariable Long id) {
         if (id != null) {
             strategyCatalogService.removeById(id);
         }
-        return AjaxResult.success();
+        return R.success();
     }
 
 }

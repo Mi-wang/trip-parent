@@ -2,11 +2,10 @@ package cn.wolfcode.controller;
 
 import cn.wolfcode.domain.Destination;
 import cn.wolfcode.domain.StrategyCatalog;
-import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.query.DestinationQuery;
 import cn.wolfcode.service.IDestinationService;
 import cn.wolfcode.service.IStrategyCatalogService;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,26 +30,26 @@ public class DestinationController {
     private IStrategyCatalogService strategyCatalogService;
 
     @GetMapping
-    public AjaxResult<?> list() {
-        return AjaxResult.success(destinationService.list());
+    public R<?> list() {
+        return R.success(destinationService.list());
     }
 
     @GetMapping("/query")
-    public AjaxResult<?> query(DestinationQuery qo) {
+    public R<?> query(DestinationQuery qo) {
         Page<Destination> page = destinationService.queryPage(qo);
-        return AjaxResult.success(page);
+        return R.success(page);
     }
 
     @GetMapping("/toasts")
-    public AjaxResult<?> queryToasts(Long destId) {
+    public R<?> queryToasts(Long destId) {
         List<Destination> list = destinationService.queryToasts(destId);
-        return AjaxResult.success(list);
+        return R.success(list);
     }
 
     @GetMapping("/catalogs")
-    public AjaxResult<?> catalogs (Long destId) {
+    public R<?> catalogs (Long destId) {
         List<StrategyCatalog> list = strategyCatalogService.queryCatalogsByDestId(destId);
-        return AjaxResult.success(list);
+        return R.success(list);
     }
 }
 

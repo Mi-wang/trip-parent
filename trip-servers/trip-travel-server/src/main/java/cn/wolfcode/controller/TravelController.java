@@ -1,10 +1,9 @@
 package cn.wolfcode.controller;
 
 import cn.wolfcode.domain.Travel;
-import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.query.TravelQuery;
 import cn.wolfcode.service.ITravelService;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,56 +22,56 @@ public class TravelController {
 
 
     @GetMapping("/list")
-    public AjaxResult<?> list() {
-        return AjaxResult.success(travelService.list());
+    public R<?> list() {
+        return R.success(travelService.list());
     }
 
     @GetMapping("/query")
-    public AjaxResult<?> query(TravelQuery qo) {
+    public R<?> query(TravelQuery qo) {
         Page<Travel> page = travelService.queryPage(qo);
-        return AjaxResult.success(page);
+        return R.success(page);
     }
 
     @GetMapping("/content")
-    public AjaxResult<?> content(Long id) {
-        return AjaxResult.success(travelService.getContent(id));
+    public R<?> content(Long id) {
+        return R.success(travelService.getContent(id));
     }
 
     @GetMapping("/viewnnumTop3")
-    public AjaxResult<?> viewnnumTop3() {
-        return AjaxResult.success(travelService.viewnnumTop3());
+    public R<?> viewnnumTop3() {
+        return R.success(travelService.viewnnumTop3());
     }
 
     @PostMapping("/audit")
-    public AjaxResult<?> audit(Long id, Integer state) {
+    public R<?> audit(Long id, Integer state) {
         travelService.audit(id, state);
-        return AjaxResult.success();
+        return R.success();
     }
 
 
     @GetMapping("/detail")
-    public AjaxResult<?> detail(Long id) {
-        return AjaxResult.success(travelService.getById(id));
+    public R<?> detail(Long id) {
+        return R.success(travelService.getById(id));
     }
 
     @PostMapping("/save")
-    public AjaxResult<?> save(Travel travel) {
+    public R<?> save(Travel travel) {
         travelService.save(travel);
-        return AjaxResult.success();
+        return R.success();
     }
 
     @PostMapping("/update")
-    public AjaxResult<?> update(Travel travel) {
+    public R<?> update(Travel travel) {
         travelService.updateById(travel);
-        return AjaxResult.success();
+        return R.success();
     }
 
     @PostMapping("/delete/{id}")
-    public AjaxResult<?> delete(@PathVariable Long id) {
+    public R<?> delete(@PathVariable Long id) {
         if (id != null) {
             travelService.removeById(id);
         }
-        return AjaxResult.success();
+        return R.success();
     }
 
 }

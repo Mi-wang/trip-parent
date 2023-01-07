@@ -1,7 +1,7 @@
 package cn.wolfcode.fegin;
 
 import cn.wolfcode.domain.UserInfo;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,5 +17,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface UserInfoFeginApi {
 
     @GetMapping("/{id}")
-    AjaxResult<UserInfo> getById(@PathVariable Long id);
+    R<UserInfo> getById(@PathVariable Long id);
 }

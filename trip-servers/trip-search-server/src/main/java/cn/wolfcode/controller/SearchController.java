@@ -1,7 +1,7 @@
 package cn.wolfcode.controller;
 
 import cn.wolfcode.qo.SearchQuery;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class SearchController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(SearchController.class);
 
     @GetMapping
-    public AjaxResult<?> search(SearchQuery qo) {
+    public R<?> search(SearchQuery qo) {
         // 类型分发操作
         switch (qo.getType()) {
             case SearchQuery.SEARCH_TYPE_DEST:
@@ -36,29 +36,29 @@ public class SearchController extends BaseController {
         }
     }
 
-    private AjaxResult<?> searchForUser(SearchQuery qo) {
+    private R<?> searchForUser(SearchQuery qo) {
         log.info("[搜索服务] 用户信息搜索: {}", qo);
-        return AjaxResult.success();
+        return R.success();
     }
 
-    private AjaxResult<?> searchForTravel(SearchQuery qo) {
+    private R<?> searchForTravel(SearchQuery qo) {
         log.info("[搜索服务] 游记信息搜索: {}", qo);
-        return AjaxResult.success();
+        return R.success();
     }
 
-    private AjaxResult<?> searchForStrategy(SearchQuery qo) {
+    private R<?> searchForStrategy(SearchQuery qo) {
         log.info("[搜索服务] 攻略信息搜索: {}", qo);
-        return AjaxResult.success();
+        return R.success();
     }
 
-    private AjaxResult<?> searchForDest(SearchQuery qo) {
+    private R<?> searchForDest(SearchQuery qo) {
         log.info("[搜索服务] 目的地信息搜索: {}", qo);
-        return AjaxResult.success();
+        return R.success();
     }
 
-    private AjaxResult<?> searchForAll(SearchQuery qo) {
+    private R<?> searchForAll(SearchQuery qo) {
         log.info("[搜索服务] 全文搜索: {}", qo);
-        return AjaxResult.success();
+        return R.success();
     }
 }
 

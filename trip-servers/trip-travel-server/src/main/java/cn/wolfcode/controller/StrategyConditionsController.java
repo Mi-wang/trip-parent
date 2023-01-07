@@ -1,10 +1,8 @@
 package cn.wolfcode.controller;
 
 import cn.wolfcode.domain.StrategyCondition;
-import cn.wolfcode.domain.StrategyRank;
 import cn.wolfcode.service.IStrategyConditionService;
-import cn.wolfcode.service.IStrategyRankService;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +23,8 @@ public class StrategyConditionsController extends BaseController {
     private IStrategyConditionService strategyConditionService;
 
     @GetMapping
-    public AjaxResult<?> index(int type) {
+    public R<?> index(int type) {
         List<StrategyCondition> list =  strategyConditionService.queryByType(type);
-        return AjaxResult.success(list);
+        return R.success(list);
     }
 }

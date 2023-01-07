@@ -1,19 +1,16 @@
 package cn.wolfcode.service.impl;
 
-import cn.wolfcode.domain.Region;
 import cn.wolfcode.domain.Travel;
 import cn.wolfcode.domain.TravelContent;
 import cn.wolfcode.domain.UserInfo;
 import cn.wolfcode.fegin.UserInfoFeginApi;
-import cn.wolfcode.mapper.RegionMapper;
 import cn.wolfcode.mapper.TravelContentMapper;
 import cn.wolfcode.mapper.TravelMapper;
-import cn.wolfcode.query.BaseQuery;
 import cn.wolfcode.query.TravelQuery;
 import cn.wolfcode.query.TravelRange;
 import cn.wolfcode.service.ITravelService;
 import cn.wolfcode.utils.AssertUtils;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -73,7 +70,7 @@ public class TravelServiceImpl extends ServiceImpl<TravelMapper, Travel> impleme
         Page<Travel> page = page(new Page<>(qo.getCurrentPage(), qo.getPageSize()), wrapper);
         List<Travel> records = page.getRecords();
         for (Travel travel : records) {
-            AjaxResult<UserInfo> result = userInfoFeginApi.getById(travel.getAuthorId());
+            R<UserInfo> result = userInfoFeginApi.getById(travel.getAuthorId());
             if (!result.hasError()) {
                 UserInfo userInfo = result.getData(UserInfo.class);
                 travel.setAuthor(userInfo);
@@ -104,7 +101,7 @@ public class TravelServiceImpl extends ServiceImpl<TravelMapper, Travel> impleme
         travel.setContent(travelContentMapper.selectById(travel.getAuthorId()));
 
         // 远程调用查询作者信息
-        AjaxResult<UserInfo> result = userInfoFeginApi.getById(travel.getAuthorId());
+        R<UserInfo> result = userInfoFeginApi.getById(travel.getAuthorId());
         if (!result.hasError()) {
             // 查询作者信息
             travel.setAuthor(result.getData(UserInfo.class));

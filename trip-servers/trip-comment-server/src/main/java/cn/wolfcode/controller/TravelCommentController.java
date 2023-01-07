@@ -5,7 +5,7 @@ import cn.wolfcode.anno.RequestUser;
 import cn.wolfcode.domain.TravelComment;
 import cn.wolfcode.domain.UserInfo;
 import cn.wolfcode.service.ITravelCommentService;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,22 +24,22 @@ public class TravelCommentController {
     private ITravelCommentService travelCommentService;
 
     @GetMapping("/query")
-    public AjaxResult<List<TravelComment>> query() {
+    public R<List<TravelComment>> query() {
         List<TravelComment> page = travelCommentService.page();
-        return AjaxResult.success(page);
+        return R.success(page);
     }
 
     @PostMapping("/save")
-    public AjaxResult<?> save(TravelComment travelComment, @RequestUser UserInfo userInfo) {
+    public R<?> save(TravelComment travelComment, @RequestUser UserInfo userInfo) {
         travelCommentService.save(travelComment, userInfo);
-        return AjaxResult.success();
+        return R.success();
     }
 
 
     @PostMapping("/delete")
-    public AjaxResult<?> delete(String id) {
+    public R<?> delete(String id) {
         travelCommentService.deleteById(id);
-        return AjaxResult.success();
+        return R.success();
     }
 
 }

@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @date 2022/12/13 15:26
  * @param<T> 响应 data 属性数据类型
  */
-public class AjaxResult<T> extends HashMap<String, Object> {
+public class R<T> extends HashMap<String, Object> {
 
     public static final Integer DEFAULT_SUCCESS_CODE = HttpStatus.OK;
     public static final String DEFAULT_SUCCESS_MSG = "success";
@@ -27,9 +27,9 @@ public class AjaxResult<T> extends HashMap<String, Object> {
     public static final String MSG_NAME = "msg";
     public static final String DATA_NAME = "data";
 
-    public AjaxResult() {}
+    public R() {}
 
-    public AjaxResult(Integer code, String msg, T data) {
+    public R(Integer code, String msg, T data) {
         super.put(CODE_NAME, code);
         super.put(MSG_NAME, msg);
         // 当 data 没有数据的时候, 就没有属性
@@ -40,56 +40,59 @@ public class AjaxResult<T> extends HashMap<String, Object> {
         }
     }
 
-    @Override
-    public AjaxResult<?> put(String key, Object value) {
+    public R<?> put(String key, Object value) {
         super.put(key, value);
         return this;
     }
 
-    public AjaxResult(Integer code, String msg) {
+    public R(Integer code, String msg) {
         this(code, msg, null);
     }
 
-    public static <T> AjaxResult<T> success(String msg, T data) {
-        return new AjaxResult<>(DEFAULT_SUCCESS_CODE, msg, data);
+    public static <T> R<T> ok(String msg, T data) {
+        return new R<>(DEFAULT_SUCCESS_CODE, msg, data);
     }
 
-    public static <T> AjaxResult<T> success(T data) {
-        return success(DEFAULT_SUCCESS_MSG, data);
+    public static <T> R<T> ok(T data) {
+        return ok(DEFAULT_SUCCESS_MSG, data);
     }
 
-    public static <T> AjaxResult<T> success(String msg) {
-        return success(msg, null);
+    public static <T> R<T> ok(String msg) {
+        return ok(msg, null);
     }
 
-    public static <T> AjaxResult<T> success() {
-        return success(DEFAULT_SUCCESS_MSG);
+    public static <T> R<T> ok() {
+        return ok(DEFAULT_SUCCESS_MSG);
     }
 
-    public static <T> AjaxResult<T> failed(Integer code, String msg, T data) {
-        return new AjaxResult<>(code, msg, data);
+    public static <T> R<T> err(Integer code, String msg, T data) {
+        return new R<>(code, msg, data);
     }
 
-    public static <T> AjaxResult<T> failed(Integer code, String msg) {
-        return failed(code, msg, null);
+    public static <T> R<T> err(Integer code, String msg) {
+        return err(code, msg, null);
     }
 
-    public static <T> AjaxResult<T> failed(String msg) {
-        return failed(DEFAULT_FAILED_CODE, msg);
+    public static <T> R<T> err(String msg) {
+        return err(DEFAULT_FAILED_CODE, msg);
     }
 
-    public static <T> AjaxResult<T> failed(Wolf2wException ex) {
-        return failed(ex.getCode(), ex.getMessage());
+    public static <T> R<T> err(Wolf2wException ex) {
+        return err(ex.getCode(), ex.getMessage());
     }
 
-    public static <T> AjaxResult<T> failed() {
-        return failed(DEFAULT_FAILED_MSG);
+    public static <T> R<T> err() {
+        return err(DEFAULT_FAILED_MSG);
+    }
+
+    public static R<?> map() {
+        return new R<>();
     }
 
     public boolean hasError() {
-        return DEFAULT_FAILED_CODE.equals(getCode());
+        // 是否有错误 == 状态码是否等于200
+        return !DEFAULT_SUCCESS_CODE.equals(getCode());
     }
-
 
     public Integer getCode() {
         return (Integer) super.get(CODE_NAME);
@@ -109,10 +112,9 @@ public class AjaxResult<T> extends HashMap<String, Object> {
             Object ret = super.get(DATA_NAME);
             t = clazz.newInstance();
             BeanUtils.copyProperties(t, ret);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return t;
     }
-
 }

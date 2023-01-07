@@ -1,7 +1,7 @@
 package cn.wolfcode.controller;
 
 import cn.wolfcode.service.ISmsService;
-import cn.wolfcode.vo.AjaxResult;
+import cn.wolfcode.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +27,7 @@ public class SmsController extends BaseController {
      * @param type  类型(REGISTER=注册, CHANGEPASS=修改密码)
      */
     @PostMapping("/send")
-    public ResponseEntity<AjaxResult<Object>> send(String phone, String type) {
+    public ResponseEntity<R<Object>> send(String phone, String type) {
         // 在 service 发送短信
         smsService.send(phone, type);
         return success("发送短信成功");
