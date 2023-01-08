@@ -19,6 +19,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -88,5 +89,13 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         result.put("token", token);
         result.put("user", info);
         return result;
+    }
+
+    @Override
+    public List<UserInfo> findByDestName(String destName) {
+        LambdaQueryWrapper<UserInfo> wrap = new LambdaQueryWrapper<UserInfo>()
+                .eq(UserInfo::getCity, destName);
+
+        return list(wrap);
     }
 }

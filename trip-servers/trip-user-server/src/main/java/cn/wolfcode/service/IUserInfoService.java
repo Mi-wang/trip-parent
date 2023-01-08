@@ -4,6 +4,7 @@ import cn.wolfcode.domain.UserInfo;
 import cn.wolfcode.dto.UserRegisterDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,4 +34,6 @@ public interface IUserInfoService extends IService<UserInfo> {
      * @return 登录成功的 token 与用户信息
      */
     Map<String, Object> login(String username, String password);
+
+    List<UserInfo> findByDestName(String destName);
 }

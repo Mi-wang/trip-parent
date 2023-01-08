@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,5 +54,10 @@ public class UserInfoController extends BaseController {
     public ResponseEntity<R<Object>> register(@Valid UserRegisterDTO registerDTO) {
         userInfoService.register(registerDTO);
         return success();
-    };
+    }
+
+    @GetMapping("/findByDest")
+    public R<List<UserInfo>> findByDest(String destName) {
+        return R.ok(userInfoService.findByDestName(destName));
+    }
 }
