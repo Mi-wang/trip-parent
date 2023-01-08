@@ -3,6 +3,9 @@ package cn.wolfcode.vo;
 import cn.wolfcode.domain.Strategy;
 import cn.wolfcode.domain.Travel;
 import cn.wolfcode.domain.UserInfo;
+import cn.wolfcode.dto.StrategyDTO;
+import cn.wolfcode.dto.TravelDTO;
+import cn.wolfcode.dto.UserInfoDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,8 +22,8 @@ import java.util.List;
 public class SearchResult {
 
     private Long total = 0L;
-    private List<Strategy> strategies = new ArrayList<>();
-    private List<Travel> travels = new ArrayList<>();
-    private List<UserInfo> users = new ArrayList<>();
+    private List<StrategyDTO> strategies = new ArrayList<>();
+    private List<TravelDTO> travels = new ArrayList<>();
+    private List<UserInfoDTO> users = new ArrayList<>();
 
 }
